@@ -11,7 +11,7 @@ feature 'User can create question', %q{
     background do
       sign_in(user)
 
-      visit root_path
+      visit questions_path
       click_on 'Ask question'
     end
 
