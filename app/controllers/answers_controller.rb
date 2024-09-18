@@ -1,48 +1,40 @@
 class AnswersController < ApplicationController
-  def index
-    @answers = question.answers
-  end
-
-  def show; end
-
-  def new; end
-
-  def edit; end
+  before_action :authenticate_user!, only: %i[create destroy]
+  before_action :set_question, only: %i[create destroy]
+  before_action :set_answer, only: %i[destroy]
 
   def create
-    @answer = question.answers.build(answer_params)
+    @answer = @question.answers.build(answer_params)
 
     if @answer.save
-      redirect_to question_answer_path(question, @answer)
+      redirect_to question_path(@question)
     else
-      render :new
+      render 'questions/show'
     end
   end
 
   def update
-    if answer.update(answer_params)
-      redirect_to question_answer_path(question, answer)
+    if @answer.update(answer_params)
+      redirect_to question_path(@question)
     else
-      render :edit
+      render 'questions/show'
     end
   end
 
   def destroy
-    answer.destroy
-    redirect_to question_answers_path(question)
+    @answer.destroy
+    redirect_to question_path(@question)
   end
 
   private
 
-  def question
-    @question ||= Question.find(params[:question_id])
+  def set_question
+    @question = Question.find(params[:question_id])
   end
 
-  def answer
-    @answer ||= params[:id] ? Answer.find(params[:id]) : Answer.new
+  def set_answer
+    @answer = Answer.find(params[:id])
   end
-
-  helper_method :question, :answer
 
   def answer_params
     params.require(:answer).permit(:body)

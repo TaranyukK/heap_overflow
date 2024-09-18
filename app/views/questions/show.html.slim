@@ -1,2 +1,11 @@
-h1= @question.title
-p= @question.body
+h1 = @question.title
+p = @question.body
+
+- if @answers.present?
+  h2 Answers
+  = render @answers
+- else
+  p No answers yet.
+
+h2 New Answer
+= render 'answers/form'
