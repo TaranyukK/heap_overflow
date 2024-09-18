@@ -8,4 +8,5 @@ p = @question.body
   p No answers yet.
 
 h2 New Answer
+= render 'shared/errors', resource: @answer
 = render 'answers/form'
