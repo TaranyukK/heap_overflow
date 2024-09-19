@@ -1,10 +1,11 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: %i[create destroy]
-  before_action :set_question, only: %i[create destroy]
-  before_action :set_answer, only: %i[destroy]
+  before_action :authenticate_user!
+  before_action :set_question, only: %i[create update destroy]
+  before_action :set_answer, only: %i[update destroy]
 
   def create
     @answer = @question.answers.build(answer_params)
+    @answer.user = current_user
 
     if @answer.save
       redirect_to question_path(@question)
