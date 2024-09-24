@@ -16,6 +16,7 @@ gem 'devise'
 gem 'slim-rails'
 gem 'rails-i18n', '~> 6.0'
 gem 'jquery-rails', '~> 4.3'
+gem 'bootstrap', '~> 5.3'
 
 
 group :development, :test do
