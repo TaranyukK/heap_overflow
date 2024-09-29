@@ -9,14 +9,13 @@ feature 'User can write an answer to a question', %q{
   given!(:question) { create(:question) }
 
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
-
       visit question_path(question)
     end
 
-    scenario 'writes a answer' do
+    scenario 'writes an answer' do
       fill_in 'Body', with: 'My answer'
       click_on 'Answer'
 

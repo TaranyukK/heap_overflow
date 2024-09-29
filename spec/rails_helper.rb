@@ -17,6 +17,8 @@ RSpec.configure do |config|
   config.include ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
 
+  Capybara.javascript_driver = :selenium_chrome_headless
+
   config.fixture_path = Rails.root.join('spec/fixtures')
 
   config.use_transactional_fixtures = true
@@ -24,6 +26,12 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!
+
+
+  config.before(:suite) do
+    FileUtils.rm_rf(Rails.root.join('public', 'packs-test'))
+    system('RAILS_ENV=test bundle exec rails webpacker:compile')
+  end
 end
 
 Shoulda::Matchers.configure do |config|
