@@ -4,7 +4,7 @@ feature 'Author can delete his answer', %q{
   In order to remove unnecessary answer
   As an author of answer
   I'd like to be able to delete my answer
-} do
+}, js: true do
   given(:user) { create(:user) }
   given(:user2) { create(:user) }
   given(:question) { create(:question) }
@@ -13,8 +13,9 @@ feature 'Author can delete his answer', %q{
   scenario 'Author deletes his answer' do
     sign_in(user)
     visit question_path(question)
-
-    click_on 'delete'
+    accept_alert do
+      click_on 'delete'
+    end
 
     expect(page).to_not have_content answer.body
   end
