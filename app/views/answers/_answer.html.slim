@@ -1,7 +1,13 @@
 - if answer.persisted?
   div id="answer-id-#{answer.id}"
+    p = 'Best' if answer.best
     p = answer.body
     - if user_signed_in? && current_user.author?(answer)
+      p = link_to 'mark as best',
+              mark_as_best_answer_path(answer),
+              method: :patch,
+              class: 'mark-best-answer-link',
+              remote: true unless answer.best
       p = link_to 'edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
       p = link_to 'delete',
               answer_path(answer),

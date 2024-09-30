@@ -1,7 +1,8 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_question, only: %i[create]
-  before_action :set_answer, only: %i[update destroy]
+  before_action :set_answer, only: %i[update destroy mark_as_best]
+  before_action :set_question_from_answer, only: %i[update destroy mark_as_best]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -11,12 +12,14 @@ class AnswersController < ApplicationController
 
   def update
     @answer.update(answer_params)
-    @question = @answer.question
   end
 
   def destroy
     @answer.destroy
-    @question = @answer.question
+  end
+
+  def mark_as_best
+    @answer.mark_as_best
   end
 
   private
@@ -27,6 +30,10 @@ class AnswersController < ApplicationController
 
   def set_answer
     @answer = Answer.find(params[:id])
+  end
+
+  def set_question_from_answer
+    @question = @answer.question
   end
 
   def answer_params

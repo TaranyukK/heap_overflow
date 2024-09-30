@@ -2,7 +2,7 @@
   = render @question
 
 .answers
-  = render @question.answers
+  = render @question.answers.sort_by_best
 
 h2 New Answer
 .new-answer-errors

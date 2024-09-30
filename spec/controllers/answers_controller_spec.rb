@@ -4,6 +4,7 @@ RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
   let(:question) { create(:question) }
   let(:answer) { create(:answer, question:, user:) }
+  let(:another_answer) { create(:answer, question: ) }
 
   before { login(user) }
 
@@ -75,6 +76,33 @@ RSpec.describe AnswersController, type: :controller do
     it 'redirects to question show view' do
       delete :destroy, params: { question_id: question, id: answer }, format: :js
       expect(response).to render_template :destroy
+    end
+  end
+
+  describe 'PATCH #mark_as_best' do
+    it 'marks the answer as the best' do
+      patch :mark_as_best, params: { id: answer, question_id: question }, format: :js
+      answer.reload
+
+      expect(answer).to be_best
+    end
+
+    it 'renders mark_as_best template' do
+      patch :mark_as_best, params: { id: answer, question_id: question }, format: :js
+      expect(response).to render_template :mark_as_best
+    end
+
+    it 'unmarks the previous best answer' do
+      patch :mark_as_best, params: { id: another_answer, question_id: question }, format: :js
+      another_answer.reload
+      expect(another_answer).to be_best
+
+      patch :mark_as_best, params: { id: answer, question_id: question }, format: :js
+      answer.reload
+      another_answer.reload
+
+      expect(answer).to be_best
+      expect(another_answer).to_not be_best
     end
   end
 end

@@ -5,4 +5,26 @@ RSpec.describe Question, type: :model do
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
+
+  describe '#best_answer' do
+    let(:question) { create(:question) }
+
+    context 'with best answer' do
+      let!(:first_answer) { create(:answer, question: question) }
+      let!(:second_answer) { create(:answer, :best, question: question) }
+
+      it { expect(question.reload.best_answer).to eq(second_answer) }
+    end
+
+    context 'without best answer' do
+      let!(:first_answer) { create(:answer, question: question) }
+      let!(:second_answer) { create(:answer, question: question) }
+
+      it { expect(question.reload.best_answer).to eq(nil) }
+    end
+
+    context 'without answers' do
+      it { expect(question.reload.best_answer).to eq(nil) }
+    end
+  end
 end
