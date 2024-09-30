@@ -7,15 +7,12 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answers = @question.answers
     @answer = Answer.new(question: @question)
   end
 
   def new
     @question = current_user.questions.build
   end
-
-  def edit; end
 
   def create
     @question = current_user.questions.new(question_params)
@@ -28,11 +25,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to @question
-    else
-      render :edit
-    end
+    @question.update(question_params)
   end
 
   def destroy

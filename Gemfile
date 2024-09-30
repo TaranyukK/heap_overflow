@@ -16,12 +16,14 @@ gem 'devise'
 gem 'slim-rails'
 gem 'rails-i18n', '~> 6.0'
 gem 'jquery-rails', '~> 4.3'
+gem 'bootstrap', '~> 5.3'
 
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 6.0'
   gem 'factory_bot_rails'
+  gem 'pry'
 end
 
 group :development do
