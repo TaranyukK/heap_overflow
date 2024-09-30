@@ -7,6 +7,7 @@
 //= require bootstrap-sprockets
 
 require('../utilities/answers')
+require('../utilities/questions')
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User can edit his answer', %q{
+feature 'Author can edit his answer', %q{
   In order to edit answer
   As an author of answer
   I'd like to be able to edit my answer

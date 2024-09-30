@@ -10,6 +10,7 @@
               remote: true,
               data: { confirm: 'Are you sure?' }
 
+      .answer-errors
       = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
         = f.label :body, 'Your answer'
         = f.text_area :body

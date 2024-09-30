@@ -1,2 +1,17 @@
-h1 = link_to question.title, question_path(question)
-p = question.body
+h1.question-title = question.title
+p.question-body = question.body
+
+- if user_signed_in? && current_user.author?(question)
+  .question-action-links
+    p = link_to 'edit', '#', class: 'edit-question-link'
+    p = link_to 'delete', question_path(question), method: :delete, class: 'delete-question-link', data: { confirm: 'Are you sure?' }
+
+  .question-errors
+  = form_with model: question, class: 'hidden', html: { id: "edit-question" }, local: false do |f|
+    = f.label :title
+    = f.text_field :title
+
+    = f.label :body
+    = f.text_area :body
+
+    = f.submit 'Save', id: 'submit-button'

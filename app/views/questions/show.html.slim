@@ -1,13 +1,10 @@
-h1 = @question.title
-p = @question.body
-
-- if user_signed_in? && current_user.author?(@question)
-  p = link_to 'delete', question_path(@question), method: :delete, data: { confirm: 'Are you sure?' }
+.question
+  = render @question
 
 .answers
   = render @question.answers
 
 h2 New Answer
-.answer-errors
+.new-answer-errors
   = render 'shared/errors', resource: @answer
 = render 'answers/form'
