@@ -3,6 +3,6 @@
   p = f.text_area :body
 
   h3 = f.label :files
-  p = f.file_field :files, multiple: true
+  p = f.file_field :files, multiple: true, direct_upload: true
 
   p = f.submit 'Answer'
