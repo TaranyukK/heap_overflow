@@ -1,7 +1,7 @@
 h1.question-title = question.title
 p.question-body = question.body
 
-.files
+.question-files
   - if question.files.attached?
     - question.files.each do |file|
       div id="file-id-#{file.id}"

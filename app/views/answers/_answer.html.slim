@@ -2,6 +2,19 @@
   div id="answer-id-#{answer.id}"
     p = 'Best' if answer.best
     p = answer.body
+
+    .answer-files
+      - if answer.files.attached?
+        - answer.files.each do |file|
+          div id="file-id-#{file.id}"
+            p = link_to file.filename.to_s, url_for(file), target: '_blank'
+            - if user_signed_in? && current_user.author?(answer)
+              p = link_to 'delete',
+                      delete_file_answer_path(answer, file_id: file.id),
+                      method: :delete,
+                      remote: true,
+                      data: { confirm: 'Are you sure?' }
+
     - if user_signed_in? && current_user.author?(answer)
       p = link_to 'mark as best',
               mark_as_best_answer_path(answer),
@@ -20,5 +33,8 @@
       = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
         = f.label :body, 'Your answer'
         = f.text_area :body
+
+        = f.label :files
+        = f.file_field :files, multiple: true
 
         = f.submit 'Save'

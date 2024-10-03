@@ -13,7 +13,7 @@ feature 'Author can delete files in his question', %q{
     sign_in(user)
     visit question_path(question)
 
-    within '.files' do
+    within '.question-files' do
       accept_alert do
         click_on 'delete'
       end
@@ -26,7 +26,7 @@ feature 'Author can delete files in his question', %q{
     sign_in(user2)
     visit question_path(question)
 
-    within '.files' do
+    within '.question-files' do
       expect(page).to_not have_link 'delete'
     end
   end

@@ -2,4 +2,7 @@
   p = f.label :body
   p = f.text_area :body
 
+  h3 = f.label :files
+  p = f.file_field :files, multiple: true
+
   p = f.submit 'Answer'

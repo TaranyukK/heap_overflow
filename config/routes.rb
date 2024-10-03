@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers, shallow: true, only: [:create, :update, :destroy] do
       patch :mark_as_best, on: :member
+      delete :delete_file, on: :member
     end
 
     delete :delete_file, on: :member
