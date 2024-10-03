@@ -5,7 +5,7 @@
   h3 = f.label :body
   p = f.text_area :body
 
-  h3 = f.label :file
-  p = f.file_field :file
+  h3 = f.label :files
+  p = f.file_field :files, multiple: true
 
   p = f.submit 'Ask'
