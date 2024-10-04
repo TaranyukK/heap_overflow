@@ -1,40 +1,40 @@
 - if answer.persisted?
-  div id="answer-id-#{answer.id}"
-    p = 'Best' if answer.best
-    p = answer.body
+  .card.mb-3 id="answer-id-#{answer.id}"
+    .card-body
+      - if answer.best
+        p.text-success.font-weight-bold.h4
+          | Best
+      p.card-text = answer.body
 
-    .answer-files
-      - if answer.files.attached?
-        - answer.files.each do |file|
-          div id="file-id-#{file.id}"
-            p = link_to file.filename.to_s, url_for(file), target: '_blank'
-            - if user_signed_in? && current_user.author?(answer)
-              p = link_to 'delete',
-                      delete_file_answer_path(answer, file_id: file.id),
-                      method: :delete,
-                      remote: true,
-                      data: { confirm: 'Are you sure?' }
+      .answer-files
+        - if answer.files.attached?
+          .row.g-3.mt-3
+            - answer.files.each do |file|
+              .col-md-4
+                .card.shadow-sm
+                  div id="file-id-#{file.id}"
+                    .card-body
+                      p.card-text = file.filename.to_s
+                      .btn-group
+                        = link_to 'download', url_for(file), target: '_blank', class: 'btn btn-primary btn-sm'
+                        - if user_signed_in? && current_user.author?(answer)
+                          = link_to 'delete', delete_file_answer_path(answer, file_id: file.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 
-    - if user_signed_in? && current_user.author?(answer)
-      p = link_to 'mark as best',
-              mark_as_best_answer_path(answer),
-              method: :patch,
-              class: 'mark-best-answer-link',
-              remote: true unless answer.best
-      p = link_to 'edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-      p = link_to 'delete',
-              answer_path(answer),
-              method: :delete,
-              class: 'delete-answer-link',
-              remote: true,
-              data: { confirm: 'Are you sure?' }
 
-      .answer-errors
-      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
-        = f.label :body, 'Your answer'
-        = f.text_area :body
+      - if user_signed_in? && current_user.author?(answer)
+        .d-flex.justify-content-end.mt-2
+          = link_to 'mark as best', mark_as_best_answer_path(answer), method: :patch, class: 'btn btn-success mark-best-answer-link me-2', remote: true unless answer.best
+          = link_to 'edit', '#', class: 'btn btn-warning edit-answer-link me-2', data: { answer_id: answer.id }
+          = link_to 'delete', answer_path(answer), method: :delete, class: 'btn btn-danger delete-answer-link', remote: true, data: { confirm: 'Are you sure?' }
 
-        = f.label :files
-        = f.file_field :files, multiple: true, direct_upload: true
+        .answer-errors.mt-3
+        = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
+          .mb-3
+            = f.label :body, 'Your answer', class: 'form-label'
+            = f.text_area :body, class: 'form-control'
 
-        = f.submit 'Save'
+          .mb-3
+            = f.label :files, class: 'form-label'
+            = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
+
+          = f.submit 'Save', class: 'btn btn-primary'

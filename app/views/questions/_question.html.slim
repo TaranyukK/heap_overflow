@@ -1,32 +1,40 @@
-h1.question-title = question.title
-p.question-body = question.body
+.card.mb-3
+  .card-body
+    h1.card-title = question.title
+    p.card-text = question.body
 
-.question-files
-  - if question.files.attached?
-    - question.files.each do |file|
-      div id="file-id-#{file.id}"
-        p = link_to file.filename.to_s, url_for(file), target: '_blank'
-        - if user_signed_in? && current_user.author?(question)
-          p = link_to 'delete',
-                  delete_file_question_path(file_id: file.id),
-                  method: :delete,
-                  remote: true,
-                  data: { confirm: 'Are you sure?' }
+    .question-files
+      - if question.files.attached?
+        .row.g-3.mt-3
+          - question.files.each do |file|
+            .col-md-4
+              .card.shadow-sm id="file-id-#{file.id}"
+                .card-body
+                  p.card-text = file.filename.to_s
+                  .btn-group
+                    = link_to 'download', url_for(file), target: '_blank', class: 'btn btn-primary btn-sm'
+                    - if user_signed_in? && current_user.author?(question)
+                      = link_to 'delete', delete_file_question_path(file_id: file.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'
 
-- if user_signed_in? && current_user.author?(question)
-  .question-action-links
-    p = link_to 'edit', '#', class: 'edit-question-link'
-    p = link_to 'delete', question_path(question), method: :delete, class: 'delete-question-link', data: { confirm: 'Are you sure?' }
 
-  .question-errors
-  = form_with model: question, class: 'hidden', html: { id: "edit-question" }, local: false do |f|
-    = f.label :title
-    = f.text_field :title
+    - if user_signed_in? && current_user.author?(question)
+      .question-action-links
+        .d-flex.justify-content-end.mt-2
+          = link_to 'edit', '#', class: 'btn btn-warning edit-question-link me-2'
+          = link_to 'delete', question_path(question), method: :delete, class: 'btn btn-danger delete-question-link', data: { confirm: 'Are you sure?' }
 
-    = f.label :body
-    = f.text_area :body
+      .question-errors.mt-3
+      = form_with model: question, class: 'hidden', html: { id: "edit-question" }, local: false do |f|
+        .mb-3
+          = f.label :title, class: 'form-label'
+          = f.text_field :title, class: 'form-control'
 
-    = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+        .mb-3
+          = f.label :body, class: 'form-label'
+          = f.text_area :body, class: 'form-control'
 
-    = f.submit 'Save', id: 'submit-button'
+        .mb-3
+          = f.label :files, class: 'form-label'
+          = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
+
+        = f.submit 'Save', class: 'btn btn-primary'
