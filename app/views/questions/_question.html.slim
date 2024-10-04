@@ -7,14 +7,7 @@
       - if question.files.attached?
         .row.g-3.mt-3
           - question.files.each do |file|
-            .col-md-4
-              .card.shadow-sm id="file-id-#{file.id}"
-                .card-body
-                  p.card-text = file.filename.to_s
-                  .btn-group
-                    = link_to 'download', url_for(file), target: '_blank', class: 'btn btn-primary btn-sm'
-                    - if user_signed_in? && current_user.author?(question)
-                      = link_to 'delete', delete_file_question_path(file_id: file.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'
+            = render 'attachments/attachment', source: question, file: file
 
 
     - if user_signed_in? && current_user.author?(question)

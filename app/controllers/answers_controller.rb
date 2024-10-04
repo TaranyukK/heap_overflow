@@ -1,8 +1,8 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_question, only: %i[create]
-  before_action :set_answer, only: %i[update destroy mark_as_best delete_file]
-  before_action :set_question_from_answer, only: %i[update destroy mark_as_best delete_file]
+  before_action :set_answer, only: %i[update destroy mark_as_best]
+  before_action :set_question_from_answer, only: %i[update destroy mark_as_best]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -20,10 +20,6 @@ class AnswersController < ApplicationController
 
   def mark_as_best
     @answer.mark_as_best
-  end
-
-  def delete_file
-    @answer.files.find(params[:file_id]).purge
   end
 
   private
