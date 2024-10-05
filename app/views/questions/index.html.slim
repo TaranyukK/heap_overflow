@@ -1,5 +1,8 @@
 - @questions.each do |question|
-  h1 = link_to question.title, question_path(question)
-  p = question.body
+  .card.mb-3
+    .card-body
+      h2.card-title = link_to question.title, question_path(question)
+      p.card-text = question.body
 
-p = link_to 'Ask question', new_question_path
+.d-flex.justify-content-end
+  = link_to 'Ask question', new_question_path, class: 'btn btn-primary'

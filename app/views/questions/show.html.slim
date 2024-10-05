@@ -1,10 +1,11 @@
 .question
   = render @question
 
-.answers
+h3 = "Answers"
+.answers.mt-4
   = render @question.answers.sort_by_best
 
-h2 New Answer
+h3.mt-4 = "New Answer"
 .new-answer-errors
   = render 'shared/errors', resource: @answer
 = render 'answers/form'

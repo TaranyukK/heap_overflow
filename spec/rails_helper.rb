@@ -32,6 +32,10 @@ RSpec.configure do |config|
     FileUtils.rm_rf(Rails.root.join('public', 'packs-test'))
     system('RAILS_ENV=test bundle exec rails webpacker:compile')
   end
+
+  config.after(:all) do
+    FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
+  end
 end
 
 Shoulda::Matchers.configure do |config|

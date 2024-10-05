@@ -1,7 +1,17 @@
-= link_to 'Home', root_path
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container
+    = link_to 'Home', root_path, class: 'navbar-brand'
 
-- if user_signed_in?
-  = link_to 'Log out', destroy_user_session_path, method: :delete
-- else
-  = link_to 'Signup', new_user_registration_path
-  = link_to 'Login', new_user_session_path
+    button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+      span.navbar-toggler-icon
+
+    .collapse.navbar-collapse#navbarNav
+      ul.navbar-nav.ms-auto
+        - if user_signed_in?
+          li.nav-item
+            = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
+        - else
+          li.nav-item
+            = link_to 'Signup', new_user_registration_path, class: 'nav-link'
+          li.nav-item
+            = link_to 'Login', new_user_session_path, class: 'nav-link'
