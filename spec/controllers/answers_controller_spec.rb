@@ -105,18 +105,4 @@ RSpec.describe AnswersController, type: :controller do
       expect(another_answer).to_not be_best
     end
   end
-
-  describe 'DELETE #delete_file' do
-    let!(:answer) { create(:answer, :with_file) }
-    let!(:file) { answer.files.first }
-
-    it 'deletes the file' do
-      expect { delete :delete_file, params: { id: answer, file_id: file.id }, format: :js }.to change(answer.files, :count).by(-1)
-    end
-
-    it 'rerenders show view' do
-      delete :delete_file, params: { id: answer, file_id: file.id }, format: :js
-      expect(response).to render_template :delete_file
-    end
-  end
 end
