@@ -7,7 +7,7 @@
     = f.label :files, class: 'form-label'
     = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
 
-  p Links:
+  h5 Add links:
   = f.fields_for :links do |l|
     .mb-3
       = l.label :name, 'Link name', class: 'form-label'
