@@ -6,9 +6,17 @@
     .question-files
       - if question.files.attached?
         .row.g-3.mt-3
+          p Files
           - question.files.each do |file|
             = render 'attachments/attachment', source: question, file: file
 
+    .question-links
+      - if question.links.exists?
+        .row.g-3.mt-3
+          p Links
+          ul
+            - question.links.each do |link|
+              li = link_to link.name, link.url, target: '_blank'
 
     - if user_signed_in? && current_user.author?(question)
       .question-action-links

@@ -12,6 +12,14 @@
             - answer.files.each do |file|
               = render 'attachments/attachment', source: answer, file: file
 
+      .answer-links
+        - if answer.links.exists?
+          .row.g-3.mt-3
+            p Links
+            ul
+              - answer.links.each do |link|
+                li = link_to link.name, link.url, target: '_blank'
+
 
       - if user_signed_in? && current_user.author?(answer)
         .d-flex.justify-content-end.mt-2
