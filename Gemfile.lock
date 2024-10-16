@@ -100,6 +100,13 @@ GEM
       xpath (~> 3.2)
     childprocess (5.0.0)
     coderay (1.1.3)
+    coffee-rails (5.0.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 5.2.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
     concurrent-ruby (1.3.4)
     crass (1.0.6)
     date (3.3.4)
@@ -151,6 +158,10 @@ GEM
     mini_mime (1.1.5)
     minitest (5.25.1)
     msgpack (1.7.2)
+    nested_form_fields (0.8.4)
+      coffee-rails (>= 3.2.1)
+      jquery-rails
+      rails (>= 3.2.0)
     net-imap (0.4.15)
       date
       net-protocol
@@ -326,6 +337,7 @@ DEPENDENCIES
   jquery-rails (~> 4.3)
   launchy
   listen (~> 3.3)
+  nested_form_fields
   pg (~> 1.1)
   pry
   puma (~> 5.0)
