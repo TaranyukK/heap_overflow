@@ -16,9 +16,8 @@
         - if answer.links.exists?
           .row.g-3.mt-3
             p Links
-            ul
-              - answer.links.each do |link|
-                li = link_to link.name, link.url, target: '_blank'
+            - answer.links.each do |link|
+              = render 'links/link', source: answer, link:
 
 
       - if user_signed_in? && current_user.author?(answer)
@@ -36,5 +35,12 @@
           .mb-3
             = f.label :files, class: 'form-label'
             = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
+
+          h5 Links:
+          #links
+            = f.fields_for :links do |link|
+              = render 'links/link_fields', f: link
+            .link
+              = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
 
           = f.submit 'Save', class: 'btn btn-primary'

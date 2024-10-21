@@ -11,14 +11,11 @@
     = f.label :files, class: 'form-label'
     = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
 
-  p Links:
-  = f.fields_for :links do |l|
-    .mb-3
-      = l.label :name, 'Link name', class: 'form-label'
-      = l.text_field :name, class: 'form-control'
-
-    .mb-3
-      = l.label :url, class: 'form-label'
-      = l.text_field :url, class: 'form-control'
+  h5 Links:
+  #links
+    = f.fields_for :links do |link|
+      = render 'links/link_fields', f: link
+    .link
+      = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
 
   = f.submit 'Ask', class: 'btn btn-primary'

@@ -8,6 +8,7 @@
 //= require bootstrap-sprockets
 //= require nested_form_fields
 
+require("@nathanvda/cocoon")
 require('../utilities/answers')
 require('../utilities/questions')
 

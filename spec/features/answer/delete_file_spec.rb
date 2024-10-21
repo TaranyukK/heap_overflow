@@ -10,7 +10,7 @@ feature 'Author can delete files in his answer', %q{
   given(:question) { create(:question) }
   given!(:answer) { create(:answer, :with_file, question: question, user: user) }
 
-  scenario 'Author deletes his answer' do
+  scenario 'Author deletes file in his answer' do
     sign_in(user)
     visit question_path(question)
 
@@ -23,7 +23,7 @@ feature 'Author can delete files in his answer', %q{
     expect(page).to_not have_link answer.files.first.blob.filename
   end
 
-  scenario 'Non-author tries to delete answer' do
+  scenario 'Non-author tries to delete file in answer' do
     sign_in(user2)
     visit question_path(question)
 

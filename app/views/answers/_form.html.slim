@@ -7,18 +7,11 @@
     = f.label :files, class: 'form-label'
     = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
 
-  h5 Add links:
-  = f.nested_fields_for :links do |ff|
-    .mb-3
-      = ff.label :name, 'Link name', class: 'form-label'
-      = ff.text_field :name, class: 'form-control'
-
-    .mb-3
-      = ff.label :url, class: 'form-label'
-      = ff.text_field :url, class: 'form-control'
-
-    = ff.remove_nested_fields_link 'remove'
-
-  = f.add_nested_fields_link :links
+  h5 Links:
+  #links
+    = f.fields_for :links do |link|
+      = render 'links/link_fields', f: link
+    .link
+      = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
 
   = f.submit 'Answer', class: 'btn btn-primary'

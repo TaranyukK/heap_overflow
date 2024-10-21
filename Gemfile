@@ -19,6 +19,7 @@ gem 'jquery-rails', '~> 4.3'
 gem 'bootstrap', '~> 5.3'
 gem 'aws-sdk-s3', require: false
 gem 'nested_form_fields'
+gem "cocoon"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
