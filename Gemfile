@@ -20,6 +20,7 @@ gem 'bootstrap', '~> 5.3'
 gem 'aws-sdk-s3', require: false
 gem 'nested_form_fields'
 gem "cocoon"
+gem "octokit"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
