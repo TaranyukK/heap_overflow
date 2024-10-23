@@ -15,4 +15,8 @@ class Question < ApplicationRecord
   def best_answer
     answers.best.first
   end
+
+  def give_award!(user)
+    user.awards << award if award
+  end
 end

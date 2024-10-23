@@ -34,4 +34,17 @@ RSpec.describe Question, type: :model do
       it { expect(question.reload.best_answer).to eq(nil) }
     end
   end
+
+  describe '#give_award!' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question, :with_award) }
+    let(:award) { question.award }
+
+
+    context 'gives award' do
+      before { question.give_award!(user) }
+
+      it { expect(award).to eq(user.awards.first) }
+    end
+  end
 end

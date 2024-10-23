@@ -5,7 +5,6 @@ class Award < ActiveRecord::Base
   has_one_attached :image
 
   validates :title, presence: true
-  validates :question_id, presence: true
 
   validate :validate_image
 
