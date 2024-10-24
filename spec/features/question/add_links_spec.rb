@@ -6,19 +6,31 @@ feature 'User can add links to question', "
   I'd like to be able to add links
 " do
   given(:user) { create(:user) }
-  given(:gist_url) { 'https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29' }
+  given(:url) { 'https://google.com' }
+  given(:gist_url) { 'https://gist.github.com/TaranyukK/8502ae3e21f1fd387002c9050e436867' }
 
-  scenario 'User adds link when asks question' do
+  background do
     sign_in(user)
     visit new_question_path
 
     fill_in 'Title', with: 'Test question'
     fill_in 'Body', with: 'text text text'
-    fill_in 'Link name', with: 'Gist'
+    fill_in 'Link name', with: 'Link'
+  end
+
+  scenario 'User adds link when asks question' do
+    fill_in 'Url', with: url
+
+    click_on 'Ask'
+
+    expect(page).to have_link 'Link', href: url
+  end
+
+  scenario 'User adds gist link when asks question' do
     fill_in 'Url', with: gist_url
 
     click_on 'Ask'
 
-    expect(page).to have_link 'Gist', href: gist_url
+    expect(page).to have_content 'This is the test!'
   end
 end
