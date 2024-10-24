@@ -1,9 +1,9 @@
 h1 Email
-p = @user.email
+p = current_user.email
 
-- if @user.awards.present?
+- if current_user.awards.present?
   h1 Your awards:
-  - @user.awards.each do |award|
+  - current_user.awards.each do |award|
     .row.g-3.mt-3
       h3 for question: #{award.question.title}
       p  = award.title

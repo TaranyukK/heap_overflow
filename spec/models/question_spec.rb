@@ -37,13 +37,22 @@ RSpec.describe Question, type: :model do
 
   describe '#give_award!' do
     let(:user) { create(:user) }
-    let(:question) { create(:question, :with_award) }
-    let(:award) { question.award }
 
     context 'gives award' do
+      let(:question) { create(:question, :with_award) }
+      let(:award) { question.award }
+
       before { question.give_award!(user) }
 
       it { expect(award).to eq(user.awards.first) }
+    end
+
+    context 'if no award' do
+      let(:question) { create(:question) }
+
+      before { question.give_award!(user) }
+
+      it { expect(question.award).to be_nil }
     end
   end
 end
