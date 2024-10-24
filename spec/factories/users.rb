@@ -1,11 +1,15 @@
 FactoryBot.define do
-  sequence :email do |n|
-    "user#{n}@test.com"
-  end
-
   factory :user do
-    email
+    sequence(:email) { |n| "user#{n}@test.com" }
     password { '12345678' }
     password_confirmation { '12345678' }
+
+    trait :with_award do
+      after(:build) do |user|
+        question = create(:question, :with_award)
+
+        user.awards << question.award
+      end
+    end
   end
 end

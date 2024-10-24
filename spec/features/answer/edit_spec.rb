@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-feature 'Author can edit his answer', %q{
+feature 'Author can edit his answer', "
   In order to edit answer
   As an author of answer
   I'd like to be able to edit my answer
-} do
+" do
   given!(:question) { create(:question) }
 
-  describe 'Authenticated user', js: true do
+  describe 'Authenticated user', :js do
     given(:user) { create(:user) }
     given!(:answer) { create(:answer, question:, user:) }
 
@@ -24,9 +24,9 @@ feature 'Author can edit his answer', %q{
           fill_in 'Your answer', with: 'edited answer'
           click_on 'Save'
 
-          expect(page).to_not have_content answer.body
+          expect(page).to have_no_content answer.body
           expect(page).to have_content 'edited answer'
-          expect(page).to_not have_selector 'textarea'
+          expect(page).to have_no_css 'textarea'
         end
       end
 
@@ -38,18 +38,18 @@ feature 'Author can edit his answer', %q{
           click_on 'Save'
 
           expect(page).to have_content answer.body
-          expect(page).to have_selector 'textarea'
+          expect(page).to have_css 'textarea'
         end
       end
     end
 
     context "someone else's answer" do
       given(:another_user) { create(:user) }
-      given!(:answer) { create(:answer, question: , user: another_user) }
+      given!(:answer) { create(:answer, question:, user: another_user) }
 
       scenario 'edit answer to the question' do
         within '.answers' do
-          expect(page).to_not have_link 'edit'
+          expect(page).to have_no_link 'edit'
         end
       end
     end
@@ -60,7 +60,7 @@ feature 'Author can edit his answer', %q{
       visit question_path(question)
 
       within '.answers' do
-        expect(page).to_not have_link 'edit'
+        expect(page).to have_no_link 'edit'
       end
     end
   end

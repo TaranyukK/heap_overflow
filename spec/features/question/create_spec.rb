@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'User can create question', %q{
+feature 'User can create question', "
   In order to get answer from community
   As an unauthenticated user
   I'd like to be able to create questions
-} do
+" do
   given(:user) { create(:user) }
 
   describe 'Authenticated user' do
@@ -34,7 +34,7 @@ feature 'User can create question', %q{
     scenario 'asks a question with attached files' do
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'text text text'
-      attach_file 'File', %W[#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb]
+      attach_file 'File', %W[#{Rails.root.join('spec/rails_helper.rb')} #{Rails.root.join('spec/spec_helper.rb')}]
       click_on 'Ask'
 
       expect(page).to have_content 'rails_helper.rb'

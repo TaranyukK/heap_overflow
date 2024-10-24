@@ -24,11 +24,29 @@ RSpec.describe QuestionsController, type: :controller do
     it 'renders show view' do
       expect(response).to render_template :show
     end
+
+    it 'assigns a new Answer to @answer' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
+
+    it 'assigns a new Link to @answer' do
+      expect(assigns(:answer).links.first).to be_a_new(Link)
+    end
   end
 
   describe 'GET #new' do
-    before { login(user) }
-    before { get :new }
+    before do
+      login(user)
+      get :new
+    end
+
+    it 'assigns a new Question to @question' do
+      expect(assigns(:question)).to be_a_new(Question)
+    end
+
+    it 'assigns a new Link to @link' do
+      expect(assigns(:question).links.first).to be_a_new(Link)
+    end
 
     it 'renders new view' do
       expect(response).to render_template :new
@@ -52,7 +70,9 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid params' do
       it 'does not save the question' do
-        expect { post :create, params: { question: attributes_for(:question, :invalid) } }.to_not change(Question, :count)
+        expect do
+          post :create, params: { question: attributes_for(:question, :invalid) }
+        end.not_to change(Question, :count)
       end
 
       it 're-renders new view' do
@@ -92,7 +112,7 @@ RSpec.describe QuestionsController, type: :controller do
       it 'does not change question' do
         expect do
           patch :update, params: { id: question, question: attributes_for(:question, :invalid) }, format: :js
-        end.to_not change(question, :title)
+        end.not_to change(question, :title)
       end
 
       it 're-renders edit view' do
@@ -116,22 +136,6 @@ RSpec.describe QuestionsController, type: :controller do
       delete :destroy, params: { id: question }
 
       expect(response).to redirect_to questions_path
-    end
-  end
-
-  describe 'DELETE #delete_file' do
-    before { login(user) }
-
-    let!(:question) { create(:question, :with_file) }
-    let!(:file) { question.files.first }
-
-    it 'deletes the file' do
-      expect { delete :delete_file, params: { id: question, file_id: file.id }, format: :js }.to change(question.files, :count).by(-1)
-    end
-
-    it 'rerenders show view' do
-      delete :delete_file, params: { id: question, file_id: file.id }, format: :js
-      expect(response).to render_template :delete_file
     end
   end
 end

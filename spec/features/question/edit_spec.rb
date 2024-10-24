@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-feature 'Author can edit his question', %q{
+feature 'Author can edit his question', "
   In order to edit question
   As an author of question
   I'd like to be able to edit my question
-} do
+" do
   given(:user) { create(:user) }
   given!(:question) { create(:question, user:) }
 
-  describe 'Authenticated user', js: true do
+  describe 'Authenticated user', :js do
     background { sign_in(user) }
 
     context 'users question' do
@@ -22,9 +22,9 @@ feature 'Author can edit his question', %q{
           fill_in 'Title', with: 'Question Title'
           click_on 'Save'
 
-          expect(page).to_not have_content question.title
+          expect(page).to have_no_content question.title
           expect(page).to have_content 'Question Title'
-          expect(page).to_not have_selector 'textfield'
+          expect(page).to have_no_css 'textfield'
         end
       end
 
@@ -34,7 +34,7 @@ feature 'Author can edit his question', %q{
           click_on 'Save'
 
           expect(page).to have_content question.body
-          expect(page).to have_selector 'textarea'
+          expect(page).to have_css 'textarea'
         end
       end
     end
@@ -47,10 +47,9 @@ feature 'Author can edit his question', %q{
         visit question_path(question)
 
         within '.question' do
-          expect(page).to_not have_link 'edit'
+          expect(page).to have_no_link 'edit'
         end
       end
-
     end
   end
 
@@ -59,7 +58,7 @@ feature 'Author can edit his question', %q{
       visit question_path(question)
 
       within '.question' do
-        expect(page).to_not have_link 'edit'
+        expect(page).to have_no_link 'edit'
       end
     end
   end

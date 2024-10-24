@@ -10,11 +10,11 @@ RSpec.describe User, type: :model do
     let(:question) { create(:question, user: user) }
 
     it 'return true if the user is author' do
-      expect(user.author?(question)).to be_truthy
+      expect(user).to be_author(question)
     end
 
     it 'return false if the user is not author' do
-      expect(user2.author?(question)).to be_falsey
+      expect(user2).not_to be_author(question)
     end
   end
 end

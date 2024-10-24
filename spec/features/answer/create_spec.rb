@@ -1,15 +1,14 @@
 require 'rails_helper'
 
-feature 'User can write an answer to a question', %q{
+feature 'User can write an answer to a question', "
   In order to help solve a problem
   As an authenticated user
   I'd like to be able to write an answer on the question's page
-} do
+" do
   given(:user) { create(:user) }
   given!(:question) { create(:question) }
 
-
-  describe 'Authenticated user', js: true do
+  describe 'Authenticated user', :js do
     background do
       sign_in(user)
       visit question_path(question)
@@ -30,7 +29,7 @@ feature 'User can write an answer to a question', %q{
 
     scenario 'writes an answer with attached files' do
       fill_in 'Body', with: 'My answer'
-      attach_file 'File', %W[#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb]
+      attach_file 'File', %W[#{Rails.root.join('spec/rails_helper.rb')} #{Rails.root.join('spec/spec_helper.rb')}]
       click_on 'Answer'
 
       expect(page).to have_content 'rails_helper.rb'

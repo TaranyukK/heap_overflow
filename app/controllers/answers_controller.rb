@@ -1,5 +1,4 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_question, only: %i[create]
   before_action :set_answer, only: %i[update destroy mark_as_best]
   before_action :set_question_from_answer, only: %i[update destroy mark_as_best]
@@ -37,6 +36,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, files: [])
+    params.require(:answer).permit(:body, files: [], links_attributes: %i[id name url _destroy])
   end
 end

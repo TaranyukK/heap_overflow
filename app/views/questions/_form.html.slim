@@ -11,4 +11,22 @@
     = f.label :files, class: 'form-label'
     = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
 
+  h5 Links:
+  #links
+    = f.fields_for :links do |link|
+      = render 'links/link_fields', f: link
+    .link
+      = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
+
+  h5 Award:
+  .award
+    = f.fields_for :award do |a|
+      .mb-3
+        = a.label :title, 'Award title', class: 'form-label'
+        = a.text_field :title, class: 'form-control'
+
+      .mb-3
+        = a.label :image, class: 'form-label'
+        = a.file_field :image, class: 'form-control'
+
   = f.submit 'Ask', class: 'btn btn-primary'
