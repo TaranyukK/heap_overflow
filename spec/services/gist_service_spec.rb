@@ -6,11 +6,11 @@ RSpec.describe GistService do
 
   describe 'get gist content' do
     it 'return array of gist content' do
-      expect(GistService.new(link).call).to eq ['This is the test!']
+      expect(described_class.new(link).call).to eq ['This is the test!']
     end
 
     it 'return nil for invalid link' do
-      expect(GistService.new(invalid_link).call).to eq ['Not found']
+      expect(described_class.new(invalid_link).call).to eq ['Not found']
     end
   end
 end

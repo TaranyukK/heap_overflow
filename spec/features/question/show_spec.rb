@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'User can view question and its answers', %q{
+feature 'User can view question and its answers', "
   In order to get more information
   As a user
   I'd like to be able to view the question and its answers
-} do
+" do
   given!(:question) { create(:question) }
   given!(:answers) { create_list(:answer, 3, question: question) }
 

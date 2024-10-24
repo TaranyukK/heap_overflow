@@ -1,0 +1,56 @@
+require:
+  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rspec_rails
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - db/migrate/**/*
+    - db/schema.rb
+    - config/**/*
+    - script/**/*
+    - bin/**/*
+    - node_modules/**/*
+    - spec/rails_helper.rb
+    - spec/spec_helper.rb
+    - config.ru
+    - Gemfile
+    - Gemfile.lock
+    - Rakefile
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+Rails/OutputSafety:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/ContextWording:
+  Enabled: false
+RSpec/IndexedLet:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpecRails/InferredSpecType:
+  Enabled: false
+RSpec/ImplicitExpect:
+  Enabled: false

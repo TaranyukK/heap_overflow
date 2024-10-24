@@ -21,7 +21,8 @@ class GistService
 
   def load_gist
     @client.gist(gist_id)
-  rescue Octokit::NotFound => @errors
+  rescue Octokit::NotFound => e
+    @errors = e
   end
 
   def default_client

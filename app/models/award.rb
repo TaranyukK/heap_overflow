@@ -1,4 +1,4 @@
-class Award < ActiveRecord::Base
+class Award < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :question
 
@@ -13,8 +13,8 @@ class Award < ActiveRecord::Base
   def validate_image
     errors.add(:image, 'must be attached') unless image.attached?
 
-    if image.attached? && !image.content_type.in?(%w[image/png image/jpg image/jpeg])
-      errors.add(:image, 'must be a PNG, JPG or JPEG')
-    end
+    return unless image.attached? && !image.content_type.in?(%w[image/png image/jpg image/jpeg])
+
+    errors.add(:image, 'must be a PNG, JPG or JPEG')
   end
 end

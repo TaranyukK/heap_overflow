@@ -35,8 +35,10 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
-    before { login(user) }
-    before { get :new }
+    before do
+      login(user)
+      get :new
+    end
 
     it 'assigns a new Question to @question' do
       expect(assigns(:question)).to be_a_new(Question)
@@ -68,7 +70,9 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid params' do
       it 'does not save the question' do
-        expect { post :create, params: { question: attributes_for(:question, :invalid) } }.to_not change(Question, :count)
+        expect do
+          post :create, params: { question: attributes_for(:question, :invalid) }
+        end.not_to change(Question, :count)
       end
 
       it 're-renders new view' do
@@ -108,7 +112,7 @@ RSpec.describe QuestionsController, type: :controller do
       it 'does not change question' do
         expect do
           patch :update, params: { id: question, question: attributes_for(:question, :invalid) }, format: :js
-        end.to_not change(question, :title)
+        end.not_to change(question, :title)
       end
 
       it 're-renders edit view' do

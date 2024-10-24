@@ -15,7 +15,7 @@ RSpec.describe Link, type: :model do
       let(:link) { create(:link, linkable: question, url: 'https://gist.github.com/username/some_id') }
 
       it 'returns true' do
-        expect(link.gist_url?).to be_truthy
+        expect(link).to be_gist_url
       end
     end
 
@@ -23,7 +23,7 @@ RSpec.describe Link, type: :model do
       let(:link) { create(:link, linkable: question, url: 'https://example.com') }
 
       it 'returns false' do
-        expect(link.gist_url?).to be_falsey
+        expect(link).not_to be_gist_url
       end
     end
   end

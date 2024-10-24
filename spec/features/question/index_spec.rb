@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'Any user can see questions', %q{
+feature 'Any user can see questions', "
   In order to get answer from community
   As an any user
   I'd like to be able to see questions
-} do
+" do
   given!(:questions) { create_list(:question, 3) }
 
   scenario 'see questions' do

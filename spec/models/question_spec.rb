@@ -10,28 +10,28 @@ RSpec.describe Question, type: :model do
   it { should accept_nested_attributes_for :links }
 
   it 'have many attached files' do
-    expect(Question.new.files).to be_an_instance_of(ActiveStorage::Attached::Many)
+    expect(described_class.new.files).to be_an_instance_of(ActiveStorage::Attached::Many)
   end
 
   describe '#best_answer' do
     let(:question) { create(:question) }
 
     context 'with best answer' do
-      let!(:first_answer) { create(:answer, question: question) }
+      let(:first_answer) { create(:answer, question: question) }
       let!(:second_answer) { create(:answer, :best, question: question) }
 
       it { expect(question.reload.best_answer).to eq(second_answer) }
     end
 
     context 'without best answer' do
-      let!(:first_answer) { create(:answer, question: question) }
-      let!(:second_answer) { create(:answer, question: question) }
+      let(:first_answer) { create(:answer, question: question) }
+      let(:second_answer) { create(:answer, question: question) }
 
-      it { expect(question.reload.best_answer).to eq(nil) }
+      it { expect(question.reload.best_answer).to be_nil }
     end
 
     context 'without answers' do
-      it { expect(question.reload.best_answer).to eq(nil) }
+      it { expect(question.reload.best_answer).to be_nil }
     end
   end
 
@@ -39,7 +39,6 @@ RSpec.describe Question, type: :model do
     let(:user) { create(:user) }
     let(:question) { create(:question, :with_award) }
     let(:award) { question.award }
-
 
     context 'gives award' do
       before { question.give_award!(user) }

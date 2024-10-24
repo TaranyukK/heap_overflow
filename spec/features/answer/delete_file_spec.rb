@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'Author can delete files in his answer', %q{
+feature 'Author can delete files in his answer', "
   In order to remove unnecessary files in answer
   As an author of answer
   I'd like to be able to delete files in my answer
-}, js: true do
+", :js do
   given(:user) { create(:user) }
   given(:user2) { create(:user) }
   given(:question) { create(:question) }
@@ -20,7 +20,7 @@ feature 'Author can delete files in his answer', %q{
       end
     end
 
-    expect(page).to_not have_link answer.files.first.blob.filename
+    expect(page).to have_no_link answer.files.first.blob.filename
   end
 
   scenario 'Non-author tries to delete file in answer' do
@@ -28,7 +28,7 @@ feature 'Author can delete files in his answer', %q{
     visit question_path(question)
 
     within '.answer-files' do
-      expect(page).to_not have_link 'delete'
+      expect(page).to have_no_link 'delete'
     end
   end
 end

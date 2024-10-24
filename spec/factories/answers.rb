@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :answer do
-    body { "My Body" }
+    body { 'My Body' }
     question
     user
 
@@ -14,7 +14,7 @@ FactoryBot.define do
 
     trait :with_file do
       after(:build) do |answer|
-        answer.files.attach(io: File.open(Rails.root.join('spec', 'rails_helper.rb')), filename: 'rails_helper.rb')
+        answer.files.attach(io: Rails.root.join('spec/rails_helper.rb').open, filename: 'rails_helper.rb')
       end
     end
 
