@@ -12,6 +12,13 @@
             - answer.files.each do |file|
               = render 'attachments/attachment', source: answer, file: file
 
+      .answer-links
+        - if answer.links.exists?
+          .row.g-3.mt-3
+            p Links
+            - answer.links.each do |link|
+              = render 'links/link', source: answer, link:
+
 
       - if user_signed_in? && current_user.author?(answer)
         .d-flex.justify-content-end.mt-2
@@ -28,5 +35,12 @@
           .mb-3
             = f.label :files, class: 'form-label'
             = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
+
+          h5 Links:
+          #links
+            = f.fields_for :links do |link|
+              = render 'links/link_fields', f: link
+            .link
+              = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
 
           = f.submit 'Save', class: 'btn btn-primary'

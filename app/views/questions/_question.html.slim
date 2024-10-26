@@ -6,11 +6,26 @@
     .question-files
       - if question.files.attached?
         .row.g-3.mt-3
+          p Files
           - question.files.each do |file|
-            = render 'attachments/attachment', source: question, file: file
+            = render 'attachments/attachment', source: question, file:
 
+    .question-links
+      - if question.links.exists?
+        .row.g-3.mt-3
+          p Links
+          - question.links.each do |link|
+            = render 'links/link', source: question, link:
 
     - if user_signed_in? && current_user.author?(question)
+      .question-award
+      - if question.award.present?
+        .row.g-3.mt-3
+          p Award
+          p = question.award.title
+          = image_tag question.award.image, class: 'img-thumbnail', style: 'max-width: 150px; max-height: 150px;'
+
+
       .question-action-links
         .d-flex.justify-content-end.mt-2
           = link_to 'edit', '#', class: 'btn btn-warning edit-question-link me-2'
@@ -29,5 +44,23 @@
         .mb-3
           = f.label :files, class: 'form-label'
           = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
+
+        h5 Links:
+        #links
+          = f.fields_for :links do |link|
+            = render 'links/link_fields', f: link
+          .link
+            = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
+
+        h5 Award:
+        .award
+          = f.fields_for :award do |a|
+            .mb-3
+              = a.label :title, 'Award title', class: 'form-label'
+              = a.text_field :title, class: 'form-control'
+
+            .mb-3
+              = a.label :image, class: 'form-label'
+              = a.file_field :image, class: 'form-control'
 
         = f.submit 'Save', class: 'btn btn-primary'

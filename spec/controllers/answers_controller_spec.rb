@@ -4,7 +4,7 @@ RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
   let(:question) { create(:question) }
   let(:answer) { create(:answer, question:, user:) }
-  let(:another_answer) { create(:answer, question: ) }
+  let(:another_answer) { create(:answer, question:) }
 
   before { login(user) }
 
@@ -23,8 +23,10 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'with invalid params' do
       it 'does not save the answer' do
-        expect { post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid) }, format: :js }
-          .to_not change(Answer, :count)
+        expect do
+          post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid) }, format: :js
+        end
+          .not_to change(Answer, :count)
       end
 
       it 'renders create template' do
@@ -54,12 +56,14 @@ RSpec.describe AnswersController, type: :controller do
     context 'with invalid params' do
       it 'does not change answer' do
         expect do
-          patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer, :invalid) }, format: :js
-        end.to_not change(answer, :body)
+          patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer, :invalid) },
+                         format: :js
+        end.not_to change(answer, :body)
       end
 
       it 'renders edit template' do
-        patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer, :invalid) }, format: :js
+        patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer, :invalid) },
+                       format: :js
 
         expect(response).to render_template :update
       end
@@ -70,7 +74,9 @@ RSpec.describe AnswersController, type: :controller do
     let!(:answer) { create(:answer, question: question) }
 
     it 'deletes the answer' do
-      expect { delete :destroy, params: { question_id: question, id: answer }, format: :js }.to change(Answer, :count).by(-1)
+      expect do
+        delete :destroy, params: { question_id: question, id: answer }, format: :js
+      end.to change(Answer, :count).by(-1)
     end
 
     it 'redirects to question show view' do
@@ -102,21 +108,7 @@ RSpec.describe AnswersController, type: :controller do
       another_answer.reload
 
       expect(answer).to be_best
-      expect(another_answer).to_not be_best
-    end
-  end
-
-  describe 'DELETE #delete_file' do
-    let!(:answer) { create(:answer, :with_file) }
-    let!(:file) { answer.files.first }
-
-    it 'deletes the file' do
-      expect { delete :delete_file, params: { id: answer, file_id: file.id }, format: :js }.to change(answer.files, :count).by(-1)
-    end
-
-    it 'rerenders show view' do
-      delete :delete_file, params: { id: answer, file_id: file.id }, format: :js
-      expect(response).to render_template :delete_file
+      expect(another_answer).not_to be_best
     end
   end
 end

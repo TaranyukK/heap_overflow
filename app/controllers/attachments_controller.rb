@@ -1,5 +1,6 @@
 class AttachmentsController < ApplicationController
   before_action :set_attachment, only: :destroy
+
   def destroy
     @attachment.purge
   end

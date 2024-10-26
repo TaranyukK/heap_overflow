@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-feature 'Author of question can select the best answer', %q{
+feature 'Author of question can select the best answer', "
   In order to highlight the best answer
   As the author of the question
   I'd like to be able to select the best answer
-} do
+" do
   given!(:question) { create(:question) }
 
-  describe 'Authenticated user', js: true do
+  describe 'Authenticated user', :js do
     given(:user) { create(:user) }
     given!(:answer) { create(:answer, question:, user:) }
     given!(:another_answer) { create(:answer, question:, user:) }
@@ -38,7 +38,7 @@ feature 'Author of question can select the best answer', %q{
         end
 
         within "#answer-id-#{answer.id}" do
-          expect(page).to_not have_content 'Best'
+          expect(page).to have_no_content 'Best'
         end
       end
     end
@@ -52,7 +52,7 @@ feature 'Author of question can select the best answer', %q{
         visit question_path(another_question)
 
         within '.answers' do
-          expect(page).to_not have_link 'mark as best'
+          expect(page).to have_no_link 'mark as best'
         end
       end
     end
@@ -63,7 +63,7 @@ feature 'Author of question can select the best answer', %q{
       visit question_path(question)
 
       within '.answers' do
-        expect(page).to_not have_link 'mark as best'
+        expect(page).to have_no_link 'mark as best'
       end
     end
   end
