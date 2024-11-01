@@ -8,13 +8,13 @@ module Voted
   def vote_up
     @votable.vote_up(current_user)
 
-    render_json
+    render json: { resource_class: model_klass.to_s, id: @votable.id, rating: @votable.rating }
   end
 
   def vote_down
     @votable.vote_down(current_user)
 
-    render_json
+    render json: { resource_class: model_klass.to_s, id: @votable.id, rating: @votable.rating }
   end
 
   private
@@ -25,9 +25,5 @@ module Voted
 
   def model_klass
     controller_name.classify.constantize
-  end
-
-  def render_json
-    render json: { resource_class: model_klass.to_s, id: @votable.id, rating: @votable.rating }
   end
 end
