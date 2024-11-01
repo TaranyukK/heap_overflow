@@ -138,4 +138,13 @@ RSpec.describe QuestionsController, type: :controller do
       expect(response).to redirect_to questions_path
     end
   end
+
+  describe 'Voted' do
+    before { logout(user) }
+
+    it_behaves_like 'voted' do
+      let(:author) { create(:user) }
+      let(:votable) { create(:question, user: author) }
+    end
+  end
 end

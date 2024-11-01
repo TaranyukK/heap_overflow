@@ -4,6 +4,8 @@
       - if answer.best
         p.text-success.font-weight-bold.h4
           | Best
+
+      = render 'votes/vote', resource: answer
       p.card-text = answer.body
 
       .answer-files

@@ -41,6 +41,8 @@ Rails/OutputSafety:
 
 RSpec/MultipleExpectations:
   Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
 RSpec/ExampleLength:
   Enabled: false
 RSpec/ContextWording:
@@ -48,6 +50,8 @@ RSpec/ContextWording:
 RSpec/IndexedLet:
   Enabled: false
 RSpec/NestedGroups:
+  Enabled: false
+RSpec/LetSetup:
   Enabled: false
 
 RSpecRails/InferredSpecType:

@@ -1,5 +1,6 @@
 .card.mb-3
   .card-body
+    = render 'votes/vote', resource: question
     h1.card-title = question.title
     p.card-text = question.body
 
