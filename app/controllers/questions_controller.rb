@@ -9,6 +9,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    gon.question_id = @question.id
     @answer = Answer.new(question: @question)
     @answer.links.build
   end
@@ -59,7 +60,7 @@ class QuestionsController < ApplicationController
       'questions',
       ApplicationController.render(
         partial: 'questions/question_card',
-        locals: { question: @question }
+        locals:  { question: @question }
       )
     )
   end

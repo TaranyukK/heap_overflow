@@ -6,6 +6,7 @@ feature 'User can write an answer to a question', "
   I'd like to be able to write an answer on the question's page
 " do
   given(:user) { create(:user) }
+  given(:guest) { create(:user) }
   given!(:question) { create(:question) }
 
   describe 'Authenticated user', :js do
@@ -34,6 +35,30 @@ feature 'User can write an answer to a question', "
 
       expect(page).to have_content 'rails_helper.rb'
       expect(page).to have_content 'spec_helper.rb'
+    end
+
+    context 'multiple sessions' do
+      scenario "answer appears on another user's page", :js do
+        Capybara.using_session('user') do
+          sign_in(user)
+          visit question_path(question)
+        end
+
+        Capybara.using_session('guest') do
+          visit question_path(question)
+        end
+
+        Capybara.using_session('user') do
+          fill_in 'Body', with: 'My answer'
+          click_on 'Answer'
+
+          expect(page).to have_content 'My answer'
+        end
+
+        Capybara.using_session('guest') do
+          expect(page).to have_content 'My answer'
+        end
+      end
     end
   end
 
