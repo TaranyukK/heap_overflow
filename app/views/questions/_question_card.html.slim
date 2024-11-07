@@ -1,0 +1,5 @@
+.card.mb-3
+  .card-body
+    p rating: #{question.rating}
+    h2.card-title = link_to question.title, question_path(question)
+    p.card-text = question.body
