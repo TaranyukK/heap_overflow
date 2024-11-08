@@ -18,6 +18,18 @@
           - question.links.each do |link|
             = render 'links/link', source: question, link:
 
+    .question-comments
+      - if question.comments.exists?
+        .row.g-3.mt-3
+          p Comments
+          - question.comments.each do |comment|
+            = render 'comments/comment', comment:
+
+    h6.mt-4 New comment
+    .new-comment-errors
+      = render 'shared/errors', resource: @comment
+    = render 'comments/form', resource: @question
+
     - if user_signed_in? && current_user.author?(question)
       .question-award
       - if question.award.present?
@@ -25,7 +37,6 @@
           p Award
           p = question.award.title
           = image_tag question.award.image, class: 'img-thumbnail', style: 'max-width: 150px; max-height: 150px;'
-
 
       .question-action-links
         .d-flex.justify-content-end.mt-2

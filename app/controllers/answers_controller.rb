@@ -4,6 +4,7 @@ class AnswersController < ApplicationController
   before_action :set_question, only: %i[create]
   before_action :set_answer, only: %i[update destroy mark_as_best]
   before_action :set_question_from_answer, only: %i[update destroy mark_as_best]
+  before_action :set_new_comment
   after_action :publish_answer, only: %i[create]
 
   def create
@@ -36,6 +37,10 @@ class AnswersController < ApplicationController
 
   def set_question_from_answer
     @question = @answer.question
+  end
+
+  def set_new_comment
+    @comment = Comment.new(commentable: @answer)
   end
 
   def answer_params

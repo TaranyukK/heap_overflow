@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_question, only: %i[show update destroy]
+  before_action :set_new_comment
   after_action :publish_question, only: %i[create]
   def index
     @questions = Question.all
@@ -43,6 +44,10 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.with_attached_files.find(params[:id])
+  end
+
+  def set_new_comment
+    @comment = Comment.new(commentable: @question)
   end
 
   def question_params

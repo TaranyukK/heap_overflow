@@ -16,7 +16,9 @@ feature 'User can write an answer to a question', "
     end
 
     scenario 'writes an answer' do
-      fill_in 'Body', with: 'My answer'
+      within '.new-answer' do
+        fill_in 'Body', with: 'My answer'
+      end
       click_on 'Answer'
 
       expect(page).to have_content 'My answer'
@@ -29,8 +31,10 @@ feature 'User can write an answer to a question', "
     end
 
     scenario 'writes an answer with attached files' do
-      fill_in 'Body', with: 'My answer'
-      attach_file 'File', %W[#{Rails.root.join('spec/rails_helper.rb')} #{Rails.root.join('spec/spec_helper.rb')}]
+      within '.new-answer' do
+        fill_in 'Body', with: 'My answer'
+        attach_file 'File', %W[#{Rails.root.join('spec/rails_helper.rb')} #{Rails.root.join('spec/spec_helper.rb')}]
+      end
       click_on 'Answer'
 
       expect(page).to have_content 'rails_helper.rb'
@@ -49,7 +53,9 @@ feature 'User can write an answer to a question', "
         end
 
         Capybara.using_session('user') do
-          fill_in 'Body', with: 'My answer'
+          within '.new-answer' do
+            fill_in 'Body', with: 'My answer'
+          end
           click_on 'Answer'
 
           expect(page).to have_content 'My answer'
@@ -65,7 +71,9 @@ feature 'User can write an answer to a question', "
   describe 'Unauthenticated user' do
     scenario 'tries to write answer' do
       visit question_path(question)
-      fill_in 'Body', with: 'My answer'
+      within '.new-answer' do
+        fill_in 'Body', with: 'My answer'
+      end
       click_on 'Answer'
 
       expect(page).to have_content 'You need to sign in or sign up before continuing.'

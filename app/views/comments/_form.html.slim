@@ -1,0 +1,6 @@
+= form_with model: [resource, @comment], class: 'new-comment', local: false do |f|
+  .mb-3
+    = f.label :body, class: 'form-label'
+    = f.text_field :body, class: 'form-control'
+
+  = f.submit 'Comment', class: 'btn btn-primary'

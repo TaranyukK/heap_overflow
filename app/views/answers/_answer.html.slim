@@ -21,6 +21,17 @@
             - answer.links.each do |link|
               = render 'links/link', source: answer, link:
 
+      .answer-comments
+        - if answer.comments.exists?
+          .row.g-3.mt-3
+            p Comments
+            - answer.comments.each do |comment|
+              = render 'comments/comment', comment:
+
+      h6.mt-4 New comment
+      .new-comment-errors
+        = render 'shared/errors', resource: @comment
+      = render 'comments/form', resource: answer
 
       - if user_signed_in? && current_user.author?(answer)
         .d-flex.justify-content-end.mt-2

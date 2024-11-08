@@ -14,8 +14,10 @@ feature 'User can add links to answer', "
     sign_in(user)
     visit question_path(question)
 
-    fill_in 'Body', with: 'My answer'
-    fill_in 'Link name', with: 'Link'
+    within '.new-answer' do
+      fill_in 'Body', with: 'My answer'
+      fill_in 'Link name', with: 'Link'
+    end
   end
 
   scenario 'User adds link when give an answer', :js do
