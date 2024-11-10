@@ -23,7 +23,7 @@ feature 'User can create a comment', "
           click_on 'Comment'
         end
 
-        within '.question-comments' do
+        within '.question .comments' do
           expect(page).to have_content 'My comment'
         end
       end
@@ -55,13 +55,13 @@ feature 'User can create a comment', "
               click_on 'Comment'
             end
 
-            within '.question-comments' do
+            within '.question .comments' do
               expect(page).to have_content 'My comment'
             end
           end
 
           Capybara.using_session('guest') do
-            within '.question-comments' do
+            within '.question .comments' do
               expect(page).to have_content 'My comment'
             end
           end
@@ -92,7 +92,7 @@ feature 'User can create a comment', "
           click_on 'Comment'
         end
 
-        within "#answer-id-#{answer.id} .answer-comments" do
+        within "#answer-id-#{answer.id} .comments" do
           expect(page).to have_content 'My comment'
         end
       end
@@ -124,13 +124,13 @@ feature 'User can create a comment', "
               click_on 'Comment'
             end
 
-            within "#answer-id-#{answer.id} .answer-comments" do
+            within "#answer-id-#{answer.id} .comments" do
               expect(page).to have_content 'My comment'
             end
           end
 
           Capybara.using_session('guest') do
-            within "#answer-id-#{answer.id} .answer-comments" do
+            within "#answer-id-#{answer.id} .comments" do
               expect(page).to have_content 'My comment'
             end
           end

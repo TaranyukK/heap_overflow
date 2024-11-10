@@ -21,7 +21,7 @@
             - answer.links.each do |link|
               = render 'links/link', source: answer, link:
 
-      .answer-comments
+      .comments
         - if answer.comments.exists?
           .row.g-3.mt-3
             p Comments

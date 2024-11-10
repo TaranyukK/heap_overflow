@@ -14,7 +14,7 @@ feature 'Author can delete his comment', "
     sign_in(user)
     visit question_path(question)
 
-    within ".question-comments #comment-id-#{comment.id}" do
+    within ".comments #comment-id-#{comment.id}" do
       accept_alert do
         click_on 'delete'
       end
@@ -27,7 +27,7 @@ feature 'Author can delete his comment', "
     sign_in(user2)
     visit question_path(question)
 
-    within ".question-comments #comment-id-#{comment.id}" do
+    within ".comments #comment-id-#{comment.id}" do
       expect(page).to have_no_link 'delete'
     end
   end

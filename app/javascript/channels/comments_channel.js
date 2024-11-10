@@ -15,6 +15,6 @@ consumer.subscriptions.create({ channel: 'CommentsChannel', question_id: gon.que
       </div>
     `
 
-    $(`#${parsedData.commentable_type.toLowerCase()}-id-${parsedData.commentable_id} .${parsedData.commentable_type.toLowerCase()}-comments`).append(commentHtml);
+    $(`#${parsedData.commentable_type.toLowerCase()}-id-${parsedData.commentable_id} .comments`).append(commentHtml);
   }
 })
