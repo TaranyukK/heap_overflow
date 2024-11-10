@@ -19,10 +19,6 @@ class CommentsController < ApplicationController
 
   private
 
-  def commentable_type
-    @commentable.class.name
-  end
-
   def comment_params
     params.require(:comment).permit(:body)
   end
@@ -43,6 +39,7 @@ class CommentsController < ApplicationController
   def publish_comment
     return if @comment.errors.any?
 
-    ActionCable.server.broadcast("comments_#{commentable_type}_#{@commentable.id}", @comment)
+    ActionCable.server.broadcast(
+      "comments_#{@comment.commentable_id}", @comment.to_json)
   end
 end

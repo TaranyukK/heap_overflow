@@ -7,15 +7,17 @@ consumer.subscriptions.create(
     return this.perform('follow');
   },
   received: function (data) {
+    let parsedData = JSON.parse(data);
+
     const answerHtml = `
-      <div class="card mb-3" id="answer-id-${data.id}">
+      <div class="card mb-3" id="answer-id-${parsedData.id}">
         <div class="card-body">
           <div class="vote vote-Answer-31">
             <div class="vote-errors"></div>
             <p>Votes:</p>
-            <div class="total-votes">0</div>
+            <div class="total-votes">${parsedData.rating}</div>
           </div>
-          <p class="card-text">${data.body}</p>
+          <p class="card-text">${parsedData.body}</p>
         </div>
       </div>
     `;
