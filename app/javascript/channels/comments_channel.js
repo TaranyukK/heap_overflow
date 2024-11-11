@@ -1,6 +1,9 @@
 import consumer from "./consumer";
 
-consumer.subscriptions.create({ channel: 'CommentsChannel', question_id: gon.question_id }, {
+consumer.subscriptions.create({
+    channel: 'CommentsChannel', commentable: gon.commentable
+  },
+  {
   connected: function() {
     return this.perform('follow');
   },
@@ -14,6 +17,7 @@ consumer.subscriptions.create({ channel: 'CommentsChannel', question_id: gon.que
         </div>
       </div>
     `
+    console.log(parsedData);
 
     $(`#${parsedData.commentable_type.toLowerCase()}-id-${parsedData.commentable_id} .comments`).append(commentHtml);
   }

@@ -1,5 +1,9 @@
 class CommentsChannel < ApplicationCable::Channel
   def follow
-    stream_from "comments_#{params[:question_id]}"
+    params[:commentable].each do |k, v|
+      v.each do |id|
+        stream_from "comments_for_#{k}_#{id}"
+      end
+    end
   end
 end

@@ -24,12 +24,11 @@ class CommentsController < ApplicationController
   end
 
   def set_commentable
-    if params[:question_id]
-      @commentable = Question.find(params[:question_id])
-    else
-      params[:answer_id]
-      @commentable = Answer.find(params[:answer_id])
-    end
+    @commentable = if params[:question_id]
+                     Question.find(params[:question_id])
+                   elsif params[:answer_id]
+                     Answer.find(params[:answer_id])
+                   end
   end
 
   def set_comment
@@ -39,7 +38,6 @@ class CommentsController < ApplicationController
   def publish_comment
     return if @comment.errors.any?
 
-    ActionCable.server.broadcast(
-      "comments_#{@comment.commentable_id}", @comment.to_json)
+    ActionCable.server.broadcast("comments_for_#{@commentable.class.name}_#{@commentable.id}", @comment.to_json)
   end
 end
