@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :answer do
-    body { 'My Body' }
+    body { 'My Answer Body' }
     question
     user
 

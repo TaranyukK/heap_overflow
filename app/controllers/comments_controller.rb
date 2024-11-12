@@ -38,6 +38,10 @@ class CommentsController < ApplicationController
   def publish_comment
     return if @comment.errors.any?
 
-    ActionCable.server.broadcast("comments_for_#{@commentable.class.name}_#{@commentable.id}", @comment.to_json)
+    question_id = @comment.commentable_type == 'Question' ? @comment.commentable_id : @comment.commentable.question_id
+
+    ActionCable.server.broadcast(
+      "question_#{question_id}_comments", @comment.to_json
+    )
   end
 end

@@ -3,13 +3,14 @@ class QuestionsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_question, only: %i[show update destroy]
-  before_action :set_new_comment, only: %i[show]
+  before_action :set_new_comment
   after_action :publish_question, only: %i[create]
   def index
     @questions = Question.all
   end
 
   def show
+    gon.question_id = @question.id
     @answer = Answer.new(question: @question)
     @answer.links.build
   end
@@ -47,8 +48,6 @@ class QuestionsController < ApplicationController
 
   def set_new_comment
     @comment = Comment.new(commentable: @question)
-    gon.commentable[:Question] << @question.id
-    gon.commentable[:Answer].concat(@question.answers.ids)
   end
 
   def question_params

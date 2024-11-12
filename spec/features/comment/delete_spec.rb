@@ -8,13 +8,13 @@ feature 'Author can delete his comment', "
   given(:user) { create(:user) }
   given(:user2) { create(:user) }
   given(:question) { create(:question) }
-  given!(:comment) { create(:comment, commentable: question) }
+  given!(:comment) { create(:comment, commentable: question, user:) }
 
   scenario 'Author deletes his comment' do
     sign_in(user)
     visit question_path(question)
 
-    within ".comments #comment-id-#{comment.id}" do
+    within "#comment-id-#{comment.id}" do
       accept_alert do
         click_on 'delete'
       end
@@ -27,7 +27,7 @@ feature 'Author can delete his comment', "
     sign_in(user2)
     visit question_path(question)
 
-    within ".comments #comment-id-#{comment.id}" do
+    within "#comment-id-#{comment.id}" do
       expect(page).to have_no_link 'delete'
     end
   end
