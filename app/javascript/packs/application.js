@@ -12,6 +12,7 @@ require("@nathanvda/cocoon")
 require('../utilities/answers')
 require('../utilities/questions')
 require('../utilities/votes')
+require('../utilities/comments')
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"

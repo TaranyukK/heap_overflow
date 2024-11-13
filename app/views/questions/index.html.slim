@@ -1,9 +1,6 @@
-- @questions.each do |question|
-  .card.mb-3
-    .card-body
-      p rating: #{question  .rating}
-      h2.card-title = link_to question.title, question_path(question)
-      p.card-text = question.body
+.questions
+  - @questions.each do |question|
+    = render 'question_card', question: question
 
 .d-flex.justify-content-end
   = link_to 'Ask question', new_question_path, class: 'btn btn-primary'

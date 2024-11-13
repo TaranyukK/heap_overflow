@@ -1,11 +1,11 @@
-.question
+.question id="question-id-#{@question.id}"
   = render @question
 
-h3 = "Answers"
+h3 Answers
 .answers.mt-4
   = render @question.answers.sort_by_best
 
-h3.mt-4 = "New Answer"
+h3.mt-4 New Answer
 .new-answer-errors
   = render 'shared/errors', resource: @answer
 = render 'answers/form'

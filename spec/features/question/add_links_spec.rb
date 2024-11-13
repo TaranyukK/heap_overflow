@@ -22,6 +22,7 @@ feature 'User can add links to question', "
     fill_in 'Url', with: url
 
     click_on 'Ask'
+    click_on 'Test question'
 
     expect(page).to have_link 'Link', href: url
   end
@@ -30,6 +31,7 @@ feature 'User can add links to question', "
     fill_in 'Url', with: gist_url
 
     click_on 'Ask'
+    click_on 'Test question'
 
     expect(page).to have_content 'This is the test!'
   end

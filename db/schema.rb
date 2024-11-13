@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_28_220251) do
+ActiveRecord::Schema.define(version: 2024_11_07_223511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,17 @@ ActiveRecord::Schema.define(version: 2024_10_28_220251) do
     t.index ["user_id"], name: "index_awards_on_user_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "user_id", null: false
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "links", force: :cascade do |t|
     t.string "name", null: false
     t.string "url", null: false
@@ -112,6 +123,7 @@ ActiveRecord::Schema.define(version: 2024_10_28_220251) do
   add_foreign_key "answers", "users"
   add_foreign_key "awards", "questions"
   add_foreign_key "awards", "users"
+  add_foreign_key "comments", "users"
   add_foreign_key "questions", "users"
   add_foreign_key "votes", "users"
 end

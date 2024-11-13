@@ -6,6 +6,7 @@ feature 'User can create question', "
   I'd like to be able to create questions
 " do
   given(:user) { create(:user) }
+  given(:guest) { create(:user) }
 
   describe 'Authenticated user' do
     background do
@@ -36,9 +37,39 @@ feature 'User can create question', "
       fill_in 'Body', with: 'text text text'
       attach_file 'File', %W[#{Rails.root.join('spec/rails_helper.rb')} #{Rails.root.join('spec/spec_helper.rb')}]
       click_on 'Ask'
+      click_on 'Test question'
 
       expect(page).to have_content 'rails_helper.rb'
       expect(page).to have_content 'spec_helper.rb'
+    end
+
+    context 'multiple sessions' do
+      scenario "question appears on another user's page", :js do
+        Capybara.using_session('user') do
+          sign_in(user)
+          visit questions_path
+        end
+
+        Capybara.using_session('guest') do
+          visit questions_path
+        end
+
+        Capybara.using_session('user') do
+          click_on 'Ask question'
+
+          fill_in 'Title', with: 'Test question'
+          fill_in 'Body', with: 'text text text'
+
+          click_on 'Ask'
+          expect(page).to have_content 'Your question successfully created.'
+          expect(page).to have_content 'Test question'
+          expect(page).to have_content 'text text text'
+        end
+
+        Capybara.using_session('guest') do
+          expect(page).to have_content 'Test question'
+        end
+      end
     end
   end
 

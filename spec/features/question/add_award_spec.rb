@@ -20,6 +20,7 @@ feature 'User can add award to question', "
     attach_file 'Image', Rails.root.join('spec/fixtures/1x1.png').to_s
 
     click_on 'Ask'
+    click_on 'Test question'
 
     expect(page).to have_content 'test award'
   end

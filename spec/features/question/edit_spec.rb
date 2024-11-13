@@ -30,7 +30,7 @@ feature 'Author can edit his question', "
 
       scenario 'edit question with errors' do
         within '.question' do
-          fill_in 'Body', with: ''
+          fill_in 'Title', with: ''
           click_on 'Save'
 
           expect(page).to have_content question.body
