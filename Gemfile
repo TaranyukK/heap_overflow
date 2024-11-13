@@ -22,6 +22,9 @@ gem 'nested_form_fields'
 gem 'cocoon'
 gem 'octokit'
 gem 'gon'
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
