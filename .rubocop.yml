@@ -61,6 +61,8 @@ RSpec/InstanceVariable:
   Enabled: false
 RSpec/Be:
   Enabled: false
+RSpec/StubbedMock:
+  Enabled: false
 
 RSpecRails/InferredSpecType:
   Enabled: false
