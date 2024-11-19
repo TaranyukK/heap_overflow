@@ -5,9 +5,9 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
-  [:github, :facebook].each do |provider|
+  %i[github facebook].each do |provider|
     describe "##{provider}" do
-      let(:oauth_data) { { 'provider' => "#{provider}", 'uid' => '123' } }
+      let(:oauth_data) { { 'provider' => provider.to_s, 'uid' => '123' } }
 
       it 'finds user from oauth data' do
         allow(request.env).to receive(:[]).and_call_original

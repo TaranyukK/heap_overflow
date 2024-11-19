@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:github, :facebook]
+         :omniauthable, omniauth_providers: %i[github facebook]
 
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy

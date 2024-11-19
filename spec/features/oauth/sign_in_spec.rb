@@ -7,8 +7,8 @@ feature 'OAuth Authentication', type: :feature do
     scenario 'user can sign in with GitHub' do
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
                                                                     provider: 'github',
-                                                                    uid: '12345',
-                                                                    info: { email: 'github_user@example.com' }
+                                                                    uid:      '12345',
+                                                                    info:     { email: 'github_user@example.com' }
                                                                   })
       visit new_user_session_path
       click_on 'Sign in with GitHub'
@@ -21,8 +21,8 @@ feature 'OAuth Authentication', type: :feature do
     scenario 'user can sign in with Facebook' do
       OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
                                                                       provider: 'facebook',
-                                                                      uid: '67890',
-                                                                      info: { email: 'facebook_user@example.com' }
+                                                                      uid:      '67890',
+                                                                      info:     { email: 'facebook_user@example.com' }
                                                                     })
       visit new_user_session_path
       click_on 'Sign in with Facebook'
