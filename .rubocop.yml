@@ -53,6 +53,16 @@ RSpec/NestedGroups:
   Enabled: false
 RSpec/LetSetup:
   Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/MessageSpies:
+  Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/Be:
+  Enabled: false
+RSpec/StubbedMock:
+  Enabled: false
 
 RSpecRails/InferredSpecType:
   Enabled: false
