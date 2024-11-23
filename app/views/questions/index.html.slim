@@ -2,5 +2,6 @@
   - @questions.each do |question|
     = render 'question_card', question: question
 
-.d-flex.justify-content-end
-  = link_to 'Ask question', new_question_path, class: 'btn btn-primary'
+- if can? :create, Question
+  .d-flex.justify-content-end
+    = link_to 'Ask question', new_question_path, class: 'btn btn-primary'

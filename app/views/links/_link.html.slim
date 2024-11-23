@@ -4,5 +4,5 @@
     - if link.gist_url?
       - GistService.new(link.url).call.each do |content|
         p = content
-    - if user_signed_in? && current_user.author?(source)
+    - if can? :destroy, link
       = link_to 'delete', link_path(link), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm ms-2'

@@ -1,6 +1,8 @@
 class LinksController < ApplicationController
   before_action :set_link, only: :destroy
 
+  authorize_resource
+
   def destroy
     @link.destroy
   end

@@ -4,5 +4,5 @@
       p.card-text = file.filename.to_s
       .btn-group
         = link_to 'download', url_for(file), target: '_blank', class: 'btn btn-primary btn-sm'
-        - if user_signed_in? && current_user.author?(source)
+        - if can? :destroy, file
           = link_to 'delete', attachment_path(file.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'

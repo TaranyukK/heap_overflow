@@ -30,17 +30,18 @@
       = render 'shared/errors', resource: @comment
     = render 'comments/form', resource: @question
 
-    - if user_signed_in? && current_user.author?(question)
-      .question-award
-      - if question.award.present?
-        .row.g-3.mt-3
-          p Award
-          p = question.award.title
-          = image_tag question.award.image, class: 'img-thumbnail', style: 'max-width: 150px; max-height: 150px;'
+    .question-award
+    - if question.award.present?
+      .row.g-3.mt-3
+        p Award
+        p = question.award.title
+        = image_tag question.award.image, class: 'img-thumbnail', style: 'max-width: 150px; max-height: 150px;'
 
-      .question-action-links
-        .d-flex.justify-content-end.mt-2
+    .question-action-links
+      .d-flex.justify-content-end.mt-2
+        - if can? :update, question
           = link_to 'edit', '#', class: 'btn btn-warning edit-question-link me-2'
+        - if can? :destroy, question
           = link_to 'delete', question_path(question), method: :delete, class: 'btn btn-danger delete-question-link', data: { confirm: 'Are you sure?' }
 
       .question-errors.mt-3

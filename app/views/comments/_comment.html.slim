@@ -3,9 +3,10 @@
     .card-body
       p.card-text = comment.body
 
-      - if user_signed_in? && current_user.author?(comment)
-        .d-flex.justify-content-end.mt-2
+      .d-flex.justify-content-end.mt-2
+        - can? :update, comment
           = link_to 'edit', '#', class: 'btn btn-warning edit-comment-link me-2', data: { comment_id: comment.id }
+        - can? :destroy, comment
           = link_to 'delete', comment_path(comment), method: :delete, class: 'btn btn-danger delete-comment-link', remote: true, data: { confirm: 'Are you sure?' }
 
         .comment-errors.mt-3

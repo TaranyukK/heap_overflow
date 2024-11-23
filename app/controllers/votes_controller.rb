@@ -1,6 +1,8 @@
 class VotesController < ApplicationController
   before_action :set_votable
 
+  authorize_resource
+
   def vote_up
     @votable.vote(1)
 
