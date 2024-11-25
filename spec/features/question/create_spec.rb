@@ -77,7 +77,7 @@ feature 'User can create question', "
     scenario 'tries to ask a question' do
       visit root_path
 
-      expect(page).not_to have_button 'Ask question'
+      expect(page).to have_no_button 'Ask question'
     end
   end
 end

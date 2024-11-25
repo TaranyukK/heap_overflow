@@ -9,9 +9,11 @@ class Ability
     @user = user
 
     guest_abilities
-    return unless user.present?
+    return if user.blank?
+
     user_abilities
     return unless user.admin?
+
     admin_abilities
   end
 
@@ -21,13 +23,13 @@ class Ability
 
   def user_abilities
     can :create, [Question, Answer, Comment]
-    can [:update, :destroy], [Question, Answer, Comment], { user_id: user.id }
+    can %i[update destroy], [Question, Answer, Comment], { user_id: user.id }
 
-    can [:create, :update, :destroy], Link do |link|
+    can %i[create update destroy], Link do |link|
       link.linkable.user_id == user.id
     end
 
-    can [:vote_up, :vote_down], [Question, Answer] do |votable|
+    can %i[vote_up vote_down], [Question, Answer] do |votable|
       votable.user_id != user.id
     end
 
