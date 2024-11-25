@@ -4,9 +4,9 @@
       p.card-text = comment.body
 
       .d-flex.justify-content-end.mt-2
-        - can? :update, comment
+        - if can? :update, comment
           = link_to 'edit', '#', class: 'btn btn-warning edit-comment-link me-2', data: { comment_id: comment.id }
-        - can? :destroy, comment
+        - if can? :destroy, comment
           = link_to 'delete', comment_path(comment), method: :delete, class: 'btn btn-danger delete-comment-link', remote: true, data: { confirm: 'Are you sure?' }
 
         .comment-errors.mt-3

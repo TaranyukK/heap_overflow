@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.new(question_params)
 
     if @question.save
-      redirect_to questions_path, notice: 'Your question successfully created.'
+      redirect_to root_path, notice: 'Your question successfully created.'
     else
       render :new
     end
@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to questions_path
+    redirect_to root_path
   end
 
   private
