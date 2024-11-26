@@ -33,10 +33,12 @@
         = render 'shared/errors', resource: @comment
       = render 'comments/form', resource: answer
 
-      - if user_signed_in? && current_user.author?(answer)
-        .d-flex.justify-content-end.mt-2
+      .d-flex.justify-content-end.mt-2
+        - if can? :mark_as_best, answer
           = link_to 'mark as best', mark_as_best_answer_path(answer), method: :patch, class: 'btn btn-success mark-best-answer-link me-2', remote: true unless answer.best
+        - if can? :update, answer
           = link_to 'edit', '#', class: 'btn btn-warning edit-answer-link me-2', data: { answer_id: answer.id }
+        - if can? :destroy, answer
           = link_to 'delete', answer_path(answer), method: :delete, class: 'btn btn-danger delete-answer-link', remote: true, data: { confirm: 'Are you sure?' }
 
         .answer-errors.mt-3

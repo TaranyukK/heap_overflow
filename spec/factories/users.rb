@@ -11,5 +11,9 @@ FactoryBot.define do
         user.awards << question.award
       end
     end
+
+    trait :admin do
+      admin { true }
+    end
   end
 end

@@ -5,7 +5,8 @@ feature 'Author of question can select the best answer', "
   As the author of the question
   I'd like to be able to select the best answer
 " do
-  given!(:question) { create(:question) }
+  given(:author) { create(:user) }
+  given!(:question) { create(:question, user: author) }
 
   describe 'Authenticated user', :js do
     given(:user) { create(:user) }
@@ -13,7 +14,7 @@ feature 'Author of question can select the best answer', "
     given!(:another_answer) { create(:answer, question:, user:) }
 
     background do
-      sign_in(user)
+      sign_in(author)
       visit question_path(question)
     end
 

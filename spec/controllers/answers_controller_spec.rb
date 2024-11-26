@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  let(:author) { create(:user) }
   let(:user) { create(:user) }
-  let(:question) { create(:question) }
+  let(:question) { create(:question, user: author) }
   let(:answer) { create(:answer, question:, user:) }
-  let(:another_answer) { create(:answer, question:) }
+  let(:another_answer) { create(:answer, question:, user:) }
 
   before { login(user) }
 
@@ -71,7 +72,7 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:answer) { create(:answer, question: question) }
+    let!(:answer) { create(:answer, question: question, user:) }
 
     it 'deletes the answer' do
       expect do
@@ -86,6 +87,10 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #mark_as_best' do
+    before do
+      login(author)
+    end
+
     it 'marks the answer as the best' do
       patch :mark_as_best, params: { id: answer, question_id: question }, format: :js
       answer.reload

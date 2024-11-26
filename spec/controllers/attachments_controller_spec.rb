@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AttachmentsController, type: :controller do
   let(:user) { create(:user) }
-  let(:question) { create(:question, :with_file) }
+  let(:question) { create(:question, :with_file, user:) }
   let!(:file) { question.files.first }
 
   before { login(user) }

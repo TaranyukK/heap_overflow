@@ -30,49 +30,50 @@
       = render 'shared/errors', resource: @comment
     = render 'comments/form', resource: @question
 
-    - if user_signed_in? && current_user.author?(question)
-      .question-award
-      - if question.award.present?
-        .row.g-3.mt-3
-          p Award
-          p = question.award.title
-          = image_tag question.award.image, class: 'img-thumbnail', style: 'max-width: 150px; max-height: 150px;'
+    .question-award
+    - if question.award.present?
+      .row.g-3.mt-3
+        p Award
+        p = question.award.title
+        = image_tag question.award.image, class: 'img-thumbnail', style: 'max-width: 150px; max-height: 150px;'
 
-      .question-action-links
-        .d-flex.justify-content-end.mt-2
-          = link_to 'edit', '#', class: 'btn btn-warning edit-question-link me-2'
+    .question-action-links
+      .d-flex.justify-content-end.mt-2
+        - if can? :update, question
+          = link_to 'edit', '#', class: 'btn btn-warning me-2 edit-question-link'
+        - if can? :destroy, question
           = link_to 'delete', question_path(question), method: :delete, class: 'btn btn-danger delete-question-link', data: { confirm: 'Are you sure?' }
 
-      .question-errors.mt-3
-      = form_with model: question, class: 'hidden', html: { id: "edit-question" }, local: false do |f|
-        .mb-3
-          = f.label :title, class: 'form-label'
-          = f.text_field :title, class: 'form-control'
+    .question-errors.mt-3
+    = form_with model: question, class: 'hidden', html: { id: "edit-question" }, local: false do |f|
+      .mb-3
+        = f.label :title, class: 'form-label'
+        = f.text_field :title, class: 'form-control'
 
-        .mb-3
-          = f.label :body, class: 'form-label'
-          = f.text_area :body, class: 'form-control'
+      .mb-3
+        = f.label :body, class: 'form-label'
+        = f.text_area :body, class: 'form-control'
 
-        .mb-3
-          = f.label :files, class: 'form-label'
-          = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
+      .mb-3
+        = f.label :files, class: 'form-label'
+        = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
 
-        h5 Links:
-        #links
-          = f.fields_for :links do |link|
-            = render 'links/link_fields', f: link
-          .link
-            = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
+      h5 Links:
+      #links
+        = f.fields_for :links do |link|
+          = render 'links/link_fields', f: link
+        .link
+          = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
 
-        h5 Award:
-        .award
-          = f.fields_for :award do |a|
-            .mb-3
-              = a.label :title, 'Award title', class: 'form-label'
-              = a.text_field :title, class: 'form-control'
+      h5 Award:
+      .award
+        = f.fields_for :award do |a|
+          .mb-3
+            = a.label :title, 'Award title', class: 'form-label'
+            = a.text_field :title, class: 'form-control'
 
-            .mb-3
-              = a.label :image, class: 'form-label'
-              = a.file_field :image, class: 'form-control'
+          .mb-3
+            = a.label :image, class: 'form-label'
+            = a.file_field :image, class: 'form-control'
 
-        = f.submit 'Save', class: 'btn btn-primary'
+      = f.submit 'Save', class: 'btn btn-primary'
