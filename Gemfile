@@ -27,6 +27,7 @@ gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-facebook'
 gem 'cancancan'
+gem 'doorkeeper'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
