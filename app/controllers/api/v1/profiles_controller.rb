@@ -1,7 +1,8 @@
 module Api
   module V1
     class ProfilesController < ApplicationController
-      before_action :doorkeeper_authorize!
+      skip_before_action :authenticate_user!
+      skip_authorization_check
 
       def me
         render json: current_resource_owner
