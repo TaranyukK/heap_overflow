@@ -6,9 +6,9 @@ describe 'Questions API', type: :request do
   describe 'GET api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
 
-    # it_behaves_like 'API Authorizable' do
-    #   let(:method) { :get }
-    # end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
+    end
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
@@ -63,9 +63,9 @@ describe 'Questions API', type: :request do
     let!(:question) { create(:question, user:) }
     let(:api_path) { "/api/v1/questions/#{question.id}" }
 
-    # it_behaves_like 'API Authorizable' do
-    #   let(:method) { :get }
-    # end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
+    end
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
@@ -109,9 +109,9 @@ describe 'Questions API', type: :request do
   describe 'POST /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
 
-    # it_behaves_like 'API Authorizable' do
-    #   let(:method) { :post }
-    # end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :post }
+    end
 
     context 'authorized' do
       let(:user) { create(:user) }
@@ -150,9 +150,9 @@ describe 'Questions API', type: :request do
     let!(:question) { create(:question, user:) }
     let(:api_path) { "/api/v1/questions/#{question.id}" }
 
-    # it_behaves_like 'API Authorizable' do
-    #   let(:method) { :patch }
-    # end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :patch }
+    end
 
     context 'authorized' do
       let(:access_token) { create(:access_token, resource_owner_id: user.id) }
@@ -192,9 +192,9 @@ describe 'Questions API', type: :request do
     let!(:question) { create(:question, user:) }
     let(:api_path) { "/api/v1/questions/#{question.id}" }
 
-    # it_behaves_like 'API Authorizable' do
-    #   let(:method) { :delete }
-    # end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :delete }
+    end
 
     context 'authorized' do
       let(:access_token) { create(:access_token, resource_owner_id: user.id) }

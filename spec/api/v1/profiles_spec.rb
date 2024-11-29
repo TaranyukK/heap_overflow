@@ -6,9 +6,9 @@ describe 'Profiles API', type: :request do
   describe 'GET api/v1/profiles/me' do
     let(:api_path) { '/api/v1/profiles/me' }
 
-    # it_behaves_like 'API Authorizable' do
-    #   let(:method) { :get }
-    # end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
+    end
 
     context 'authorized' do
       let(:me) { create(:user) }
@@ -37,9 +37,9 @@ describe 'Profiles API', type: :request do
   describe 'GET /api/v1/profiles' do
     let(:api_path) { '/api/v1/profiles' }
 
-    # it_behaves_like 'API Authorizable' do
-    #   let(:method) { :get }
-    # end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
+    end
 
     context 'authorized' do
       let(:me) { create(:user) }
