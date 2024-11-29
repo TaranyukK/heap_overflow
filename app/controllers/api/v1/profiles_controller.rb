@@ -1,18 +1,14 @@
-module Api
-  module V1
-    class ProfilesController < ApplicationController
-      skip_before_action :authenticate_user!
-      skip_authorization_check
+class Api::V1::ProfilesController < Api::V1::BaseController
+  def me
+    authorize! :show, User
 
-      def me
-        render json: current_resource_owner
-      end
+    render json: current_user
+  end
 
-      private
+  def index
+    authorize! :index, User
 
-      def current_resource_owner
-        @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id)
-      end
-    end
+    @users = User.where.not(id: current_user.id)
+    render json: @users
   end
 end
