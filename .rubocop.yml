@@ -30,6 +30,8 @@ Style/ClassVars:
   Enabled: false
 Style/WordArray:
   Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
