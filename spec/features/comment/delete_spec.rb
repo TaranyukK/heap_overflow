@@ -6,7 +6,7 @@ feature 'Author can delete his comment', "
   I'd like to be able to delete my comment
 ", :js do
   given(:user) { create(:user) }
-  given(:user2) { create(:user) }
+  given(:other_user) { create(:user) }
   given(:question) { create(:question) }
   given!(:comment) { create(:comment, commentable: question, user:) }
 
@@ -24,7 +24,7 @@ feature 'Author can delete his comment', "
   end
 
   scenario 'Non-author tries to delete answer' do
-    sign_in(user2)
+    sign_in(other_user)
     visit question_path(question)
 
     within "#comment-id-#{comment.id}" do

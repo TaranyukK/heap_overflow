@@ -6,7 +6,7 @@ feature 'Author can delete his answer', "
   I'd like to be able to delete my answer
 ", :js do
   given(:user) { create(:user) }
-  given(:user2) { create(:user) }
+  given(:other_user) { create(:user) }
   given(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
@@ -21,7 +21,7 @@ feature 'Author can delete his answer', "
   end
 
   scenario 'Non-author tries to delete answer' do
-    sign_in(user2)
+    sign_in(other_user)
     visit question_path(question)
 
     expect(page).to have_no_link 'delete'

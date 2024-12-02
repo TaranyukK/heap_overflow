@@ -1,6 +1,10 @@
 .card.mb-3
   .card-body
     = render 'votes/vote', resource: question
+
+    - if can?(:create, Subscription)
+      = render 'subscriptions/subscription_links', resource: @question
+
     h1.card-title = question.title
     p.card-text = question.body
 

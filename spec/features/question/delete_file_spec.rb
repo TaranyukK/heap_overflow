@@ -6,7 +6,7 @@ feature 'Author can delete files in his question', "
   I'd like to be able to delete files in my question
 " do
   given(:user) { create(:user) }
-  given(:user2) { create(:user) }
+  given(:other_user) { create(:user) }
   given!(:question) { create(:question, :with_file, user: user) }
 
   scenario 'Author deletes file in his question', :js do
@@ -23,7 +23,7 @@ feature 'Author can delete files in his question', "
   end
 
   scenario 'Non-author tries to delete file in question' do
-    sign_in(user2)
+    sign_in(other_user)
     visit question_path(question)
 
     within '.question-files' do
