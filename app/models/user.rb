@@ -20,6 +20,6 @@ class User < ApplicationRecord
   end
 
   def subscribed?(resource)
-    subscriptions.find_by(question_id: resource.id).present?
+    subscriptions.exists?(question_id: resource.id)
   end
 end
