@@ -7,6 +7,7 @@ class Question < ApplicationRecord
 
   has_many :answers, dependent: :destroy
   has_one :award, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   has_many_attached :files
 
@@ -14,11 +15,19 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
 
+  after_create :subscribe_author
+
   def best_answer
     answers.best.first
   end
 
   def give_award!(user)
     user.awards << award if award
+  end
+
+  private
+
+  def subscribe_author
+    subscriptions.create!(user: user)
   end
 end

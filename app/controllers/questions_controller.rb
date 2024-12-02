@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_question, only: %i[show update destroy]
   before_action :set_new_comment
+  before_action :set_subscription, only: %i[show update]
   after_action :publish_question, only: %i[create]
 
   authorize_resource
@@ -51,6 +52,10 @@ class QuestionsController < ApplicationController
 
   def set_new_comment
     @comment = Comment.new(commentable: @question)
+  end
+
+  def set_subscription
+    @subscription = @question.subscriptions.find_by(user: current_user)
   end
 
   def question_params

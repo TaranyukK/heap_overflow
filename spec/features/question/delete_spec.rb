@@ -6,7 +6,7 @@ feature 'Author can delete his question', "
   I'd like to be able to delete my question
 " do
   given(:user) { create(:user) }
-  given(:user2) { create(:user) }
+  given(:other_user) { create(:user) }
   given!(:question) { create(:question, user: user) }
 
   scenario 'Author deletes his question' do
@@ -20,7 +20,7 @@ feature 'Author can delete his question', "
   end
 
   scenario 'Non-author tries to delete question' do
-    sign_in(user2)
+    sign_in(other_user)
     visit question_path(question)
 
     expect(page).to have_no_link 'delete'

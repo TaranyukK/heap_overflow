@@ -6,7 +6,7 @@ feature 'Author can delete links in his question', "
   I'd like to be able to delete links in my question
 " do
   given(:user) { create(:user) }
-  given(:user2) { create(:user) }
+  given(:other_user) { create(:user) }
   given!(:question) { create(:question, :with_link, user: user) }
 
   scenario 'Author deletes his question', :js do
@@ -23,7 +23,7 @@ feature 'Author can delete links in his question', "
   end
 
   scenario 'Non-author tries to delete link in question' do
-    sign_in(user2)
+    sign_in(other_user)
     visit question_path(question)
 
     within '.question-links' do

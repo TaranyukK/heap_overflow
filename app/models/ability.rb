@@ -22,8 +22,9 @@ class Ability
   end
 
   def user_abilities
-    can :create, [Question, Answer, Comment]
-    can %i[update destroy], [Question, Answer, Comment], { user_id: user.id }
+    can :create, [Question, Answer, Comment, Subscription]
+    can :update, [Question, Answer, Comment], { user_id: user.id }
+    can :destroy, [Question, Answer, Comment, Subscription], { user_id: user.id }
 
     can %i[create update destroy], Link do |link|
       link.linkable.user_id == user.id
