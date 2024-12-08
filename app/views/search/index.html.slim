@@ -1,0 +1,17 @@
+- if @query.present?
+  h1.text-center.mb-4 Results for "#{@query}"
+
+  - if @results.present?
+    div.list-group
+      - @results.each do |model, items|
+        div.list-group-item
+          h5.mb-3 = model.to_s.capitalize
+          - if items.any?
+            ul.list-unstyled
+              - items.each do |item|
+                li.mb-2 = item_link(item)
+          - else
+            p.text-muted.text-center No results found for #{model.to_s.capitalize}.
+- else
+  h1.text-center.mb-4 Search
+  p.text-muted.text-center Please enter a query to search.

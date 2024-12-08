@@ -1,7 +1,14 @@
 class Answer < ApplicationRecord
+  include PgSearch::Model
   include Linkable
   include Votable
   include Commentable
+
+  pg_search_scope :search,
+                  against: :body,
+                  using:   {
+                    tsearch: { prefix: true }
+                  }
 
   belongs_to :question
   belongs_to :user
