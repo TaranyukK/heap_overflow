@@ -1,4 +1,12 @@
 class User < ApplicationRecord
+  include PgSearch::Model
+
+  pg_search_scope :search,
+                  against: :email,
+                  using:   {
+                    tsearch: { prefix: true }
+                  }
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[github facebook]
