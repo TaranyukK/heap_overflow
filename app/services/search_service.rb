@@ -1,17 +1,18 @@
 class SearchService
+  SEARCH_MODELS = [Question, Answer, Comment, User].freeze
+
   def initialize(query, model)
     @query = query
     @model = model
+    @results = []
   end
 
   def call
-    return { @model => @model.constantize.search(@query) } if @model.present?
+    return if @query.blank?
+    return @model.constantize.search(@query) if @model.present?
 
-    questions = Question.search(@query)
-    answers = Answer.search(@query)
-    comments = Comment.search(@query)
-    users = User.search(@query)
-
-    { questions: questions, answers: answers, comments: comments, users: users }
+    SEARCH_MODELS.map do |model|
+      model.search(@query)
+    end.flatten
   end
 end

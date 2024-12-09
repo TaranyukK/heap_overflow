@@ -27,12 +27,7 @@ RSpec.describe SearchService, type: :service do
       it 'returns the search results for all models' do
         result = search_service.call
 
-        expect(result).to eq({
-                               questions: ['question1'],
-                               answers:   ['answer1'],
-                               comments:  ['comment1'],
-                               users:     ['user1']
-                             })
+        expect(result).to eq(%w[question1 answer1 comment1 user1])
       end
     end
 
@@ -58,7 +53,7 @@ RSpec.describe SearchService, type: :service do
       it 'returns search results for the specified model' do
         result = search_service.call
 
-        expect(result).to eq({ 'Question' => ['question1'] })
+        expect(result).to eq(['question1'])
       end
     end
   end

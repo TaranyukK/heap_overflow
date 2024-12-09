@@ -5,10 +5,6 @@ class SearchController < ApplicationController
   def index
     @query = params[:query]
     @model = params[:model]
-    @results = {}
-
-    return if @query.blank?
-
     @results = SearchService.new(@query, @model).call
   end
 end

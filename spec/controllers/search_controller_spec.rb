@@ -10,14 +10,7 @@ RSpec.describe SearchController, type: :controller do
 
   describe 'GET #index' do
     context 'with valid query' do
-      let(:search_results) do
-        {
-          questions: [question],
-          answers:   [answer],
-          comments:  [comment],
-          users:     [user]
-        }
-      end
+      let(:search_results) { [question, answer, comment, user] }
 
       before do
         allow(SearchService).to receive(:new).with('My', nil).and_return(double(call: search_results))
@@ -39,16 +32,16 @@ RSpec.describe SearchController, type: :controller do
 
     context 'with empty query' do
       before do
-        allow(SearchService).to receive(:new).with('', nil).and_return(double(call: {}))
+        allow(SearchService).to receive(:new).with('', nil).and_return(double(call: []))
         get :index, params: { query: '' }
       end
 
       it 'does not call SearchService with empty query' do
-        expect(SearchService).not_to have_received(:new).with('', nil)
+        expect(SearchService).to have_received(:new).with('', nil)
       end
 
       it 'assigns an empty result to @results' do
-        expect(assigns(:results)).to eq({})
+        expect(assigns(:results)).to eq([])
       end
 
       it 'renders the index view' do
@@ -57,7 +50,7 @@ RSpec.describe SearchController, type: :controller do
     end
 
     context 'with model-specific query' do
-      let(:search_results) { { questions: [question] } }
+      let(:search_results) { [question] }
 
       before do
         allow(SearchService).to receive(:new).with('My', 'Question').and_return(double(call: search_results))
