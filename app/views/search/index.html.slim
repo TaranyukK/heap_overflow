@@ -1,0 +1,17 @@
+- if @query.present?
+  h1.text-center.mb-4 Results for "#{@query}"
+
+  - if @results.present?
+    div.list-group
+      - @results.group_by(&:class).each do |model, items|
+        div.list-group-item
+          h5.mb-3 = model.to_s
+          - if items.present?
+            - items.each do |item|
+              ul.list-unstyled
+                li.mb-2 = item_link(item)
+          - else
+            p.text-muted.text-center No results found for #{item.class.to_s}.
+- else
+  h1.text-center.mb-4 Search
+  p.text-muted.text-center Please enter a query to search.
