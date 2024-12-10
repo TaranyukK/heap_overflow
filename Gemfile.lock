@@ -246,6 +246,9 @@ GEM
     orm_adapter (0.5.0)
     ostruct (0.6.1)
     pg (1.5.9)
+    pg_search (2.3.7)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     popper_js (2.11.8)
     pry (0.15.0)
       coderay (~> 1.1)
@@ -446,6 +449,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-rails_csrf_protection
   pg (~> 1.1)
+  pg_search
   pry
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
