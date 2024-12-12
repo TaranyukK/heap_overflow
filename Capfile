@@ -7,7 +7,8 @@ require "capistrano/rvm"
 require "capistrano/bundler"
 require "capistrano/rails"
 require "capistrano/passenger"
-require "capistrano/sidekiq"
+require 'capistrano/sidekiq'
+require 'whenever/capistrano'
 
 # Load the SCM plugin appropriate to your project:
 #
@@ -19,7 +20,8 @@ require "capistrano/sidekiq"
 # or
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
-
+install_plugin Capistrano::Sidekiq
+install_plugin Capistrano::Sidekiq::Systemd
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:
