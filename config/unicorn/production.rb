@@ -21,12 +21,6 @@ end
 # preload
 preload_app true
 
-namespace :deploy do
-  task :restart do
-    invoke 'unicorn:reload'
-  end
-end
-
 before_fork do |server, worker|
   # the following is highly recomended for Rails + "preload_app true"
   # as there's no need for the master process to hold a connection
