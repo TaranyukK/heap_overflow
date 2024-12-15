@@ -23,7 +23,7 @@ preload_app true
 
 namespace :deploy do
   task :restart do
-    invoke 'unicorn:restart'
+    invoke 'unicorn:reload'
   end
 end
 
