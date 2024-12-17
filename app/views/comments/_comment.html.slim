@@ -1,18 +1,19 @@
 - if comment.persisted?
-  .card.mb-3 id="comment-id-#{comment.id}"
-    .card-body
-      p.card-text = comment.body
+  - cache comment do
+    .card.mb-3 id="comment-id-#{comment.id}"
+      .card-body
+        p.card-text = comment.body
 
-      .d-flex.justify-content-end.mt-2
-        - if can? :update, comment
-          = link_to 'edit', '#', class: 'btn btn-warning edit-comment-link me-2', data: { comment_id: comment.id }
-        - if can? :destroy, comment
-          = link_to 'delete', comment_path(comment), method: :delete, class: 'btn btn-danger delete-comment-link', remote: true, data: { confirm: 'Are you sure?' }
+        .d-flex.justify-content-end.mt-2
+          - if can? :update, comment
+            = link_to 'edit', '#', class: 'btn btn-warning edit-comment-link me-2', data: { comment_id: comment.id }
+          - if can? :destroy, comment
+            = link_to 'delete', comment_path(comment), method: :delete, class: 'btn btn-danger delete-comment-link', remote: true, data: { confirm: 'Are you sure?' }
 
-        .comment-errors.mt-3
-        = form_with model: comment, class: 'hidden', html: { id: "edit-comment-#{comment.id}" }, local: false do |f|
-          .mb-3
-            = f.label :body, 'Your comment', class: 'form-label'
-            = f.text_field :body, class: 'form-control'
+          .comment-errors.mt-3
+          = form_with model: comment, class: 'hidden', html: { id: "edit-comment-#{comment.id}" }, local: false do |f|
+            .mb-3
+              = f.label :body, 'Your comment', class: 'form-label'
+              = f.text_field :body, class: 'form-control'
 
-          = f.submit 'Save', class: 'btn btn-primary'
+            = f.submit 'Save', class: 'btn btn-primary'
