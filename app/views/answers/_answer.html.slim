@@ -1,61 +1,62 @@
 - if answer.persisted?
-  .card.mb-3 id="answer-id-#{answer.id}"
-    .card-body
-      - if answer.best
-        p.text-success.font-weight-bold.h4
-          | Best
+  - cache answer do
+    .card.mb-3 id="answer-id-#{answer.id}"
+      .card-body
+        - if answer.best
+          p.text-success.font-weight-bold.h4
+            | Best
 
-      = render 'votes/vote', resource: answer
-      p.card-text = answer.body
+        = render 'votes/vote', resource: answer
+        p.card-text = answer.body
 
-      .answer-files
-        - if answer.files.attached?
-          .row.g-3.mt-3
-            - answer.files.each do |file|
-              = render 'attachments/attachment', source: answer, file: file
+        .answer-files
+          - if answer.files.attached?
+            .row.g-3.mt-3
+              - answer.files.each do |file|
+                = render 'attachments/attachment', source: answer, file: file
 
-      .answer-links
-        - if answer.links.exists?
-          .row.g-3.mt-3
-            p Links
-            - answer.links.each do |link|
-              = render 'links/link', source: answer, link:
+        .answer-links
+          - if answer.links.exists?
+            .row.g-3.mt-3
+              p Links
+              - answer.links.each do |link|
+                = render 'links/link', source: answer, link:
 
-      .comments
-        - if answer.comments.exists?
-          .row.g-3.mt-3
-            p Comments
-            - answer.comments.each do |comment|
-              = render 'comments/comment', comment:
+        .comments
+          - if answer.comments.exists?
+            .row.g-3.mt-3
+              p Comments
+              - answer.comments.each do |comment|
+                = render 'comments/comment', comment:
 
-      h6.mt-4 New comment
-      .new-comment-errors
-        = render 'shared/errors', resource: @comment
-      = render 'comments/form', resource: answer
+        h6.mt-4 New comment
+        .new-comment-errors
+          = render 'shared/errors', resource: @comment
+        = render 'comments/form', resource: answer
 
-      .d-flex.justify-content-end.mt-2
-        - if can? :mark_as_best, answer
-          = link_to 'mark as best', mark_as_best_answer_path(answer), method: :patch, class: 'btn btn-success mark-best-answer-link me-2', remote: true unless answer.best
-        - if can? :update, answer
-          = link_to 'edit', '#', class: 'btn btn-warning edit-answer-link me-2', data: { answer_id: answer.id }
-        - if can? :destroy, answer
-          = link_to 'delete', answer_path(answer), method: :delete, class: 'btn btn-danger delete-answer-link', remote: true, data: { confirm: 'Are you sure?' }
+        .d-flex.justify-content-end.mt-2
+          - if can? :mark_as_best, answer
+            = link_to 'mark as best', mark_as_best_answer_path(answer), method: :patch, class: 'btn btn-success mark-best-answer-link me-2', remote: true unless answer.best
+          - if can? :update, answer
+            = link_to 'edit', '#', class: 'btn btn-warning edit-answer-link me-2', data: { answer_id: answer.id }
+          - if can? :destroy, answer
+            = link_to 'delete', answer_path(answer), method: :delete, class: 'btn btn-danger delete-answer-link', remote: true, data: { confirm: 'Are you sure?' }
 
-        .answer-errors.mt-3
-        = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
-          .mb-3
-            = f.label :body, 'Your answer', class: 'form-label'
-            = f.text_area :body, class: 'form-control'
+          .answer-errors.mt-3
+          = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
+            .mb-3
+              = f.label :body, 'Your answer', class: 'form-label'
+              = f.text_area :body, class: 'form-control'
 
-          .mb-3
-            = f.label :files, class: 'form-label'
-            = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
+            .mb-3
+              = f.label :files, class: 'form-label'
+              = f.file_field :files, multiple: true, direct_upload: true, class: 'form-control'
 
-          h5 Links:
-          #links
-            = f.fields_for :links do |link|
-              = render 'links/link_fields', f: link
-            .link
-              = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
+            h5 Links:
+            #links
+              = f.fields_for :links do |link|
+                = render 'links/link_fields', f: link
+              .link
+                = link_to_add_association 'add link', f, :links, partial: 'links/link_fields', class: 'mb-3 btn btn-secondary'
 
-          = f.submit 'Save', class: 'btn btn-primary'
+            = f.submit 'Save', class: 'btn btn-primary'

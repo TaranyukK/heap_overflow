@@ -1,11 +1,12 @@
-.question id="question-id-#{@question.id}"
-  = render @question
+- cache @question do
+  .question id="question-id-#{@question.id}"
+    = render @question
 
-h3 Answers
-.answers.mt-4
-  = render @question.answers.sort_by_best
+  h3 Answers
+  .answers.mt-4
+    = render @question.answers.sort_by_best
 
-h3.mt-4 New Answer
-.new-answer-errors
-  = render 'shared/errors', resource: @answer
-= render 'answers/form'
+  h3.mt-4 New Answer
+  .new-answer-errors
+    = render 'shared/errors', resource: @answer
+  = render 'answers/form'

@@ -35,6 +35,7 @@ gem 'sinatra', require: false
 gem 'whenever', require: false
 gem 'pg_search'
 gem 'unicorn'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
